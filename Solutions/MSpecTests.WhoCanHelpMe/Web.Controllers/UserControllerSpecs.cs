@@ -1,4 +1,6 @@
-﻿namespace MSpecTests.WhoCanHelpMe.Web.Controllers
+﻿using WhoCanHelpMe.Web.Controllers.User.ViewModels;
+
+namespace MSpecTests.WhoCanHelpMe.Web.Controllers
 {
     #region Using Directives
 
@@ -119,41 +121,47 @@
     public class when_the_user_controller_is_asked_to_authenticate_with_a_return_url_and_authentication_is_successful : specification_for_user_controller
     {
         static ActionResult result;
-        static string the_user_id;
-        static string the_return_url;
+        static LoginFormModel the_login_form_model;
 
         Establish context = () =>
         {
-            the_user_id = "open id";
-            the_return_url = "return url";
+            the_login_form_model = new LoginFormModel
+                                       {
+                                           EmailAddress = "user id", 
+                                           Password = "password", 
+                                           ReturnUrl = "return url"
+                                       };
         };
 
-        Because of = () => result = subject.Authenticate(the_user_id, the_return_url);
+        Because of = () => result = subject.Authenticate(the_login_form_model);
 
         It should_ask_the_identity_tasks_to_authenticate_the_user =
-            () => identity_tasks.AssertWasCalled(i => i.Authenticate(the_user_id));
+            () => identity_tasks.AssertWasCalled(i => i.Authenticate(the_login_form_model.EmailAddress, the_login_form_model.Password));
 
         It should_redirect_to_the_return_url = 
-            () => result.ShouldBeARedirect().And().Url.ShouldEqual(the_return_url);
+            () => result.ShouldBeARedirect().And().Url.ShouldEqual(the_login_form_model.ReturnUrl);
     }
 
     [Subject(typeof(UserController))]
     public class when_the_user_controller_is_asked_to_authenticate_without_a_return_url_and_authentication_is_successful : specification_for_user_controller
     {
         static ActionResult result;
-        static string the_user_id;
-        static string the_return_url;
+        static LoginFormModel the_login_form_model;
 
         Establish context = () =>
         {
-            the_user_id = "open id";
-            the_return_url = string.Empty;
+            the_login_form_model = new LoginFormModel
+            {
+                EmailAddress = "user id",
+                Password = "password",
+                ReturnUrl = "return url"
+            };
         };
 
-        Because of = () => result = subject.Authenticate(the_user_id, the_return_url);
+        Because of = () => result = subject.Authenticate(the_login_form_model);
 
         It should_ask_the_identity_tasks_to_authenticate_the_user =
-            () => identity_tasks.AssertWasCalled(i => i.Authenticate(the_user_id));
+            () => identity_tasks.AssertWasCalled(i => i.Authenticate(the_login_form_model.EmailAddress, the_login_form_model.Password));
 
         It should_redirect_to_home = () => result.ShouldRedirectToAction<HomeController>(x => x.Index());
     }
@@ -162,21 +170,24 @@
     public class when_the_user_controller_is_asked_to_authenticate_and_authentication_is_unsuccessful : specification_for_user_controller
     {
         static ActionResult result;
-        static string the_user_id;
-        static string the_return_url;
+        static LoginFormModel the_login_form_model;
 
         Establish context = () =>
         {
-            the_user_id = "open id";
-            the_return_url = "return url";
+            the_login_form_model = new LoginFormModel
+            {
+                EmailAddress = "user id",
+                Password = "password",
+                ReturnUrl = "return url"
+            };
 
-            identity_tasks.Stub(i => i.Authenticate(the_user_id)).Throw(new AuthenticationException());
+            identity_tasks.Stub(i => i.Authenticate(the_login_form_model.EmailAddress, the_login_form_model.Password)).Throw(new AuthenticationException());
         };
 
-        Because of = () => result = subject.Authenticate(the_user_id, the_return_url);
+        Because of = () => result = subject.Authenticate(the_login_form_model);
 
         It should_ask_the_identity_tasks_to_authenticate_the_user =
-            () => identity_tasks.AssertWasCalled(i => i.Authenticate(the_user_id));
+            () => identity_tasks.AssertWasCalled(i => i.Authenticate(the_login_form_model.EmailAddress, the_login_form_model.Password));
 
         It should_redirect_to_the_login_view = () => 
             result.ShouldRedirectToAction<UserController>(x => x.Login(null));

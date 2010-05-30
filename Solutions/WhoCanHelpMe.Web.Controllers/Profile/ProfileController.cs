@@ -24,8 +24,6 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
     using ViewModels;
 
-    using xVal.ServerSide;
-
     #endregion
 
     public class ProfileController : BaseController
@@ -80,23 +78,17 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
         [ValidateAntiForgeryToken]
         [ModelStateToTempData]
         [RequireNoExistingProfile("Profile", "Update")]
-        public ActionResult Create(CreateProfileFormViewModel createProfile)
+        public ActionResult Create(CreateProfileFormModel createProfile)
         {
-            var identity = this.identityTasks.GetCurrentIdentity();
-
-            try
+            if (ModelState.IsValid)
             {
-                var createProfileDetails = this.createProfileDetailsMapper.MapFrom(
-                    createProfile,
-                    identity);
+                var identity = this.identityTasks.GetCurrentIdentity();
+
+                var createProfileDetails = this.createProfileDetailsMapper.MapFrom(createProfile, identity);
 
                 this.userTasks.CreateProfile(createProfileDetails);
 
                 return this.RedirectToAction(x => x.Update());
-            }
-            catch (RulesException ex)
-            {
-                ex.AddModelStateErrors(this.ModelState);
             }
 
             return this.RedirectToAction(x => x.Create());
@@ -160,23 +152,15 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
         [ValidateAntiForgeryToken]
         [ModelStateToTempData]
         [RequireExistingProfile("Profile", "Create")]
-        public ActionResult Update(AddAssertionFormViewModel addAssertion)
+        public ActionResult Update(AddAssertionFormModel formModel)
         {
-            var identity = this.identityTasks.GetCurrentIdentity();
-
-            var addAssertionDetails = this.addAssertionDetailsMapper.MapFrom(
-                addAssertion,
-                identity);
-
-            try
+            if (ModelState.IsValid)
             {
+                var identity = this.identityTasks.GetCurrentIdentity();
+
+                var addAssertionDetails = this.addAssertionDetailsMapper.MapFrom(formModel, identity);
+
                 this.userTasks.AddAssertion(addAssertionDetails);
-            }
-            catch (RulesException ex)
-            {
-                ex.AddModelStateErrors(
-                    this.ModelState,
-                    "addAssertion");
             }
 
             return this.RedirectToAction(x => x.Update());

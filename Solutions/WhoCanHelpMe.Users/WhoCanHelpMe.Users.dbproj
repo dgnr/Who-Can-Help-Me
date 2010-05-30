@@ -304,4 +304,9 @@
       <SubType>Code</SubType>
     </Build>
   </ItemGroup>
+  <ItemGroup>
+    <NotInBuild Include="Scripts\Post-Deployment\Script.Data.SchemaVersions.sql">
+      <SubType>Code</SubType>
+    </NotInBuild>
+  </ItemGroup>
 </Project>

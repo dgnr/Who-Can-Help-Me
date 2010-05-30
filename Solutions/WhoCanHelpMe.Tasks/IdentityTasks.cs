@@ -1,4 +1,6 @@
-﻿namespace WhoCanHelpMe.Tasks
+﻿using System;
+
+namespace WhoCanHelpMe.Tasks
 {
     #region Using Directives
 
@@ -17,47 +19,28 @@
 
     public class IdentityTasks : IIdentityTasks
     {
-        public void Authenticate(string userId)
+        public void Authenticate(string userName, string password)
         {
-            var openId = new OpenIdRelyingParty();
-
-            var response = openId.GetResponse();
-
-            if (response == null)
+            if (Membership.ValidateUser(userName, password))
             {
-                // Stage 2: user submitting Identifier
-                Identifier id;
-                if (Identifier.TryParse(userId, out id))
-                {
-                    try
-                    {
-                        var redirectingResponse = openId.CreateRequest(userId).RedirectingResponse;
-                        redirectingResponse.Send(HttpContext.Current);
-                    }
-                    catch (ProtocolException ex)
-                    {
-                        throw new AuthenticationException(ex.Message, ex);
-                    }
-                }
-
-                throw new AuthenticationException("Invalid identifier");
+                FormsAuthentication.SetAuthCookie(userName, false);
             }
-
-            // Stage 3: OpenID Provider sending assertion response
-            switch (response.Status)
+            else
             {
-                case AuthenticationStatus.Authenticated:
-                    FormsAuthentication.SetAuthCookie(response.ClaimedIdentifier, false);
-                    break;
+                throw new AuthenticationException("Unknown username or password.");
+            }
+        }
 
-                case AuthenticationStatus.Canceled:
-                    throw new AuthenticationException("Cancelled at provider");
- 
-                case AuthenticationStatus.Failed:
-                    throw new AuthenticationException(response.Exception.Message);
-
-                default:
-                    throw new AuthenticationException("An unknown problem occurred");
+        public void Register(string userName, string password)
+        {
+            try
+            {
+                Membership.CreateUser(userName, password);
+                FormsAuthentication.SetAuthCookie(userName, false);
+            }
+            catch (MembershipCreateUserException ex)
+            {
+                throw new AuthenticationException(ex.Message);
             }
         }
 

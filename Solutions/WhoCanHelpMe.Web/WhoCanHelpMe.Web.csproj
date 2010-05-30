@@ -199,6 +199,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
@@ -234,19 +240,12 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.min-vsdoc.js" />
     <Content Include="Views\_Content\img\indicator.gif" />
     <Content Include="Views\_Content\img\logo.png" />
     <Content Include="Views\_Content\img\nav_bg.png" />
     <Content Include="Views\_Content\css\reset.css" />
     <Content Include="Scripts\bespoke.js" />
     <Content Include="Scripts\jquery.autocomplete.custom.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.pack.js" />
-    <Content Include="Scripts\openid-jquery.js" />
-    <Content Include="Scripts\xVal.jquery.validate.js" />
     <Content Include="Views\_Content\css\jquery.autocomplete.css" />
     <Content Include="Views\_Content\css\openid.css" />
     <Content Include="Views\_Content\img\openid-images\aol.gif" />

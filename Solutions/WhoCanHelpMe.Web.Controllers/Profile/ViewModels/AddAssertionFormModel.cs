@@ -2,16 +2,15 @@
 {
     #region Using Directives
 
-    using NHibernate.Validator.Constraints;
+    using System.ComponentModel.DataAnnotations;
 
     #endregion
 
-    public class AddAssertionFormViewModel
+    public class AddAssertionFormModel
     {
         public int CategoryId { get; set; }
 
-        [NotNull(Message = "*")]
-        [NotEmpty(Message = "*")]
+        [Required]
         public string TagName { get; set; }
     }
 }

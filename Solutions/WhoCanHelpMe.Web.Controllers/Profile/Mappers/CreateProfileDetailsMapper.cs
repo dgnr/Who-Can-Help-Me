@@ -12,7 +12,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.Mappers
 
     #endregion
 
-    public class CreateProfileDetailsMapper : BaseMapper<CreateProfileFormViewModel, Identity, CreateProfileDetails>,
+    public class CreateProfileDetailsMapper : BaseMapper<CreateProfileFormModel, Identity, CreateProfileDetails>,
                                               ICreateProfileDetailsMapper
     {
     }

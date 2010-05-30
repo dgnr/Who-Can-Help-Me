@@ -26,7 +26,14 @@ namespace WhoCanHelpMe.Web.Controllers.User.Mappers
             var viewModel = new LoginPageViewModel
                 {
                     Message = message ?? string.Empty,
-                    ReturnUrl = returnUrl
+                    LoginFormModel = new LoginFormModel
+                                    {
+                                        ReturnUrl = returnUrl
+                                    },
+                    RegistrationFormModel = new RegistrationFormModel
+                                    {
+                                        ReturnUrl = returnUrl
+                                    }
                 };
 
             return this.pageViewModelBuilder.UpdateSiteProperties(viewModel);

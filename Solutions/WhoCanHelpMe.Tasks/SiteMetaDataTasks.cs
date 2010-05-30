@@ -39,10 +39,9 @@ namespace WhoCanHelpMe.Tasks
                               {
                                   "jquery-1.4.1.min.js",
                                   "jquery.autocomplete.custom.js",
-                                  "jquery.validate.js",
-                                  "xVal.jquery.validate.js",
-                                  "openid-jquery.js",
-                                  "bespoke.js"
+                                  "bespoke.js",
+                                  "MicrosoftAjax.js",
+                                  "MicrosoftMvcValidation.js"
                               };
 
             return scripts;

@@ -12,7 +12,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.Mappers
 
     #endregion
 
-    public class AddAssertionDetailsMapper : BaseMapper<AddAssertionFormViewModel, Identity, AddAssertionDetails>,
+    public class AddAssertionDetailsMapper : BaseMapper<AddAssertionFormModel, Identity, AddAssertionDetails>,
                                              IAddAssertionDetailsMapper
     {
     }

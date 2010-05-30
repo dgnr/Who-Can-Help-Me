@@ -1,4 +1,7 @@
-﻿namespace WhoCanHelpMe.Web.Controllers.User
+﻿using System;
+using WhoCanHelpMe.Web.Controllers.User.ViewModels;
+
+namespace WhoCanHelpMe.Web.Controllers.User
 {
     #region Using Directives
 
@@ -30,32 +33,64 @@
             this.loginPageViewModelMapper = loginPageViewModelMapper;
         }
 
-        [ValidateInput(false)]
         [ModelStateToTempData]
-        public ActionResult Authenticate(
-            string openId,
-            string returnUrl)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Authenticate(LoginFormModel loginFormModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                this.identityTasks.Authenticate(openId);
-
-                if (!string.IsNullOrEmpty(returnUrl))
+                try
                 {
-                    return this.Redirect(returnUrl);
-                }
+                    this.identityTasks.Authenticate(loginFormModel.EmailAddress, loginFormModel.Password);
 
-                return this.RedirectToAction<HomeController>(x => x.Index());
+                    return this.BuildSuccessfulLoginRedirectResult(loginFormModel.ReturnUrl);
+                }
+                catch (AuthenticationException ex)
+                {
+                    this.TempData.Add("Message", ex.Message);
+                }
             }
-            catch (AuthenticationException ex)
-            {
-                this.TempData.Add(
-                    "Message",
-                    ex.Message);
-                return this.RedirectToAction(x => x.Login(string.Empty));
-            }
+
+            return this.RedirectToAction(x => x.Login(loginFormModel.ReturnUrl));
         }
 
+        [ModelStateToTempData]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegistrationFormModel registrationFormModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // TODO: Validate the registrationFormModel, ensure that the two passwords are the same.
+                    this.identityTasks.Register(registrationFormModel.EmailAddress, registrationFormModel.Password);
+
+                    return this.BuildSuccessfulLoginRedirectResult(registrationFormModel.ReturnUrl);
+                }
+                catch (AuthenticationException ex)
+                {
+                    this.TempData.Add(
+                        "Message",
+                        ex.Message);
+                }
+            }
+
+            return this.RedirectToAction(x => x.Login(registrationFormModel.ReturnUrl));
+        }
+
+        private ActionResult BuildSuccessfulLoginRedirectResult(string returnUrl)
+        {
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                return this.Redirect(returnUrl);
+            }
+
+            return this.RedirectToAction<HomeController>(x => x.Index());
+        }
+
+        [HttpGet]
         public ActionResult Index()
         {
             if (this.identityTasks.IsSignedIn())
@@ -67,11 +102,12 @@
         }
 
         [ModelStateToTempData]
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             if (this.identityTasks.IsSignedIn())
             {
-                //  Redirect to home page
+                // Redirect to home page
                 return this.RedirectToAction<HomeController>(x => x.Index());
             }
 

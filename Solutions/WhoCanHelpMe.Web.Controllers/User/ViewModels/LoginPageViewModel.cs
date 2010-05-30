@@ -10,6 +10,8 @@ namespace WhoCanHelpMe.Web.Controllers.User.ViewModels
     {
         public string Message { get; set; }
 
-        public string ReturnUrl { get; set; }
+        public LoginFormModel LoginFormModel { get; set; }
+
+        public RegistrationFormModel RegistrationFormModel { get; set; }    
     }
 }

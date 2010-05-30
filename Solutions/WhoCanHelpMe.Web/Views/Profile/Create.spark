@@ -4,6 +4,8 @@
 Hey there stranger!
 </content>
 
+#Html.EnableClientValidation();
+
 <h2>Tell me about yourself!</h2>
 <p>You haven't created a profile yet, please supply the following details:</p>
 
@@ -12,16 +14,17 @@ Hey there stranger!
 	!{Html.AntiForgeryToken()}
 
 	<div class="formInput">
-		!{this.TextBox(x => x.FirstName).Label("First name:")}
-		!{this.ValidationMessage(x => x.FirstName)}
+    <label>First name:</label>
+		!{Html.TextBoxFor(x => x.FirstName)}
+		!{Html.ValidationMessageFor(x => x.FirstName)}
 	</div>
 
 	<div class="formInput">
-		!{this.TextBox(x => x.LastName).Label("Last name:")}
-		!{this.ValidationMessage(x => x.LastName)}
-	</div>
-	
-	!{this.SubmitButton("Continue")}
-    !{Html.ClientSideValidation<WhoCanHelpMe.Web.Controllers.Profile.ViewModels.CreateProfileFormViewModel>()}
+    <label>Last name:</label>
+    !{Html.TextBoxFor(x => x.LastName)}
+    !{Html.ValidationMessageFor(x => x.LastName)}
+  </div>
+
+  <button type="submit">Continue</button>
 
 </form>

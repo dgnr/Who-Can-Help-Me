@@ -10,7 +10,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.Mappers.Contracts
 
     #endregion
 
-    public interface ICreateProfileDetailsMapper : IMapper<CreateProfileFormViewModel, Identity, CreateProfileDetails>
+    public interface ICreateProfileDetailsMapper : IMapper<CreateProfileFormModel, Identity, CreateProfileDetails>
     {
     }
 }

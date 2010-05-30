@@ -11,7 +11,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.Mappers.Contracts
     public interface IAddAssertionDetailsMapper
     {
         AddAssertionDetails MapFrom(
-            AddAssertionFormViewModel viewModel,
+            AddAssertionFormModel viewModel,
             Identity identity);
     }
 }

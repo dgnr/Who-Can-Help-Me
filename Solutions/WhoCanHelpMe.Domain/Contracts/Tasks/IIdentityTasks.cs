@@ -8,6 +8,8 @@ namespace WhoCanHelpMe.Domain.Contracts.Tasks
 
         bool IsSignedIn();
 
-        void Authenticate(string userId);
+        void Authenticate(string userName, string password);
+        
+        void Register(string userName, string password);
     }
 }

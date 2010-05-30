@@ -110,7 +110,7 @@
         static string user_name;
         static Identity the_identity;
         static ActionResult result;
-        static CreateProfileFormViewModel create_profile_view_model;
+        static CreateProfileFormModel create_profile_view_model;
         static CreateProfileDetails create_profile_details;
 
         Establish context = () =>
@@ -121,7 +121,7 @@
                                                 UserName = user_name
                                             };
 
-                create_profile_view_model = new CreateProfileFormViewModel();
+                create_profile_view_model = new CreateProfileFormModel();
                 create_profile_details = new CreateProfileDetails();
 
                 identity_tasks.Stub(i => i.GetCurrentIdentity()).Return(the_identity);
@@ -149,7 +149,7 @@
         static string user_name;
         static Identity the_identity;
         static ActionResult result;
-        static CreateProfileFormViewModel create_profile_view_model;
+        static CreateProfileFormModel create_profile_view_model;
         static CreateProfileDetails create_profile_details;
 
         Establish context = () =>
@@ -161,7 +161,7 @@
                 UserName = user_name
             };
 
-            create_profile_view_model = new CreateProfileFormViewModel();
+            create_profile_view_model = new CreateProfileFormModel();
             create_profile_details = new CreateProfileDetails();
 
             identity_tasks.Stub(i => i.GetCurrentIdentity()).Return(the_identity);
@@ -324,13 +324,13 @@
     public class when_the_profile_controller_is_told_to_update_a_profile : specification_for_profile_controller
     {
         static ActionResult result;
-        static AddAssertionFormViewModel the_view_model;
+        static AddAssertionFormModel the_view_model;
         static Identity the_identity;
         static AddAssertionDetails the_add_assertion_details;
 
         Establish context = () =>
             {
-                the_view_model = new AddAssertionFormViewModel();
+                the_view_model = new AddAssertionFormModel();
 
                 the_identity = new Identity();
 
@@ -365,13 +365,13 @@
     public class when_the_profile_controller_is_told_to_update_a_profile_with_invalid_data : specification_for_profile_controller
     {
         static ActionResult result;
-        static AddAssertionFormViewModel the_view_model;
+        static AddAssertionFormModel the_view_model;
         static Identity the_identity;
         static AddAssertionDetails the_add_assertion_details;
 
         Establish context = () =>
         {
-            the_view_model = new AddAssertionFormViewModel();
+            the_view_model = new AddAssertionFormModel();
 
             the_identity = new Identity();
 

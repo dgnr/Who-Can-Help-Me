@@ -103,10 +103,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ReferencedAssemblies\MvcContrib\MvcContrib.TestHelper.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.Validator, Version=1.2.0.1004, Culture=neutral, PublicKeyToken=b5f559ae0ac4e006, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ReferencedAssemblies\NHibernate\NHibernate.Validator.dll</HintPath>
-    </Reference>
     <Reference Include="PostSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL" />
     <Reference Include="SharpArch.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b5f559ae0ac4e006, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -114,6 +110,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -126,10 +123,6 @@
     </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
-    <Reference Include="xVal, Version=4.5.14361.0, Culture=neutral, PublicKeyToken=7d36a26be2c5e23c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ReferencedAssemblies\xVal\xVal.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Common\AssemblyVersion.cs">
@@ -150,7 +143,6 @@
     <Compile Include="BaseController.cs" />
     <Compile Include="About\AboutController.cs" />
     <Compile Include="Error\ErrorController.cs" />
-    <Compile Include="Extensions\RulesExceptionExtensions.cs" />
     <Compile Include="Home\HomeController.cs" />
     <Compile Include="About\Mappers\Contracts\IAboutPageViewModelMapper.cs" />
     <Compile Include="Shared\Mappers\Contracts\IPageViewModelBuilder.cs" />
@@ -183,13 +175,15 @@
     <Compile Include="Registrars\ControllerRegistrar.cs" />
     <Compile Include="Registrars\MapperRegistrar.cs" />
     <Compile Include="User\UserController.cs" />
-    <Compile Include="Profile\ViewModels\AddAssertionFormViewModel.cs" />
+    <Compile Include="Profile\ViewModels\AddAssertionFormModel.cs" />
     <Compile Include="Search\ViewModels\AssertionViewModel.cs" />
     <Compile Include="Profile\ViewModels\CategoryViewModel.cs" />
     <Compile Include="About\ViewModels\AboutPageViewModel.cs" />
     <Compile Include="Profile\ViewModels\CreateProfilePageViewModel.cs" />
-    <Compile Include="Profile\ViewModels\CreateProfileFormViewModel.cs" />
+    <Compile Include="Profile\ViewModels\CreateProfileFormModel.cs" />
     <Compile Include="Home\ViewModels\HomePageViewModel.cs" />
+    <Compile Include="User\ViewModels\RegistrationFormModel.cs" />
+    <Compile Include="User\ViewModels\LoginFormModel.cs" />
     <Compile Include="User\ViewModels\LoginPageViewModel.cs" />
     <Compile Include="Home\ViewModels\NewsItemViewModel.cs" />
     <Compile Include="Search\ViewModels\SearchResultsPageViewModel.cs" />

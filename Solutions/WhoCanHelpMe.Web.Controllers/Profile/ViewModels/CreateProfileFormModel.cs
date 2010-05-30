@@ -4,11 +4,9 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.ViewModels
 
     using System.ComponentModel.DataAnnotations;
 
-    using Shared.ViewModels;
-
     #endregion
 
-    public class CreateProfilePageViewModel : PageViewModel
+    public class CreateProfileFormModel
     {
         [Required(ErrorMessage = "*")]
         public string FirstName { get; set; }

@@ -4,28 +4,57 @@
 Who goes there?
 </content>
 
+#Html.EnableClientValidation();
+
 <p if="!string.IsNullOrEmpty(Model.Message)">${Model.Message}</p>
 
 <h2>Identify yourself!</h2>
-<!-- Simple OpenID Selector -->
-<form method="get" action="Authenticate" id="openid_form">
-	<input type="hidden" name="action" value="verify" />
-	<fieldset>
-			!{this.Hidden(x => x.ReturnUrl)}
-    		
-    		<div id="openid_choice">
-	    		<p>Please click your account provider to sign-in:</p>
-	    		<div id="openid_btns"></div>
-			</div>
-			
-			<div id="openid_input_area">
-				<input id="openId" name="openId" type="text" value="http://" />
-				<input id="openid_submit" type="submit" value="Log in"/>
-			</div>
-			<noscript>
-			<p>OpenID is service that allows you to log-on to many different websites using a single indentity.
-			Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
-			</noscript>
-	</fieldset>
+
+<h3>Please sign in with your email address and password</h3>
+
+<form method="post" action="Authenticate">
+
+  !{Html.AntiForgeryToken()}
+  !{Html.HiddenFor(x => x.LoginFormModel.ReturnUrl)}
+
+  <div class="formInput">
+    <label>Email:</label>
+    !{Html.TextBoxFor(x => x.LoginFormModel.EmailAddress)}
+    !{Html.ValidationMessageFor(x => x.LoginFormModel.EmailAddress)}
+  </div>
+
+  <div class="formInput">
+    <label>Password:</label>
+    !{Html.PasswordFor(x => x.LoginFormModel.Password)}
+    !{Html.ValidationMessageFor(x => x.LoginFormModel.Password)}
+  </div>
+
+  <button type="submit">Log in</button>
 </form>
-<!-- /Simple OpenID Selector -->
+
+<h3>If you haven't got a password, please register to continue...</h3>
+
+<form method="post" action="Register">
+  !{Html.AntiForgeryToken()}
+  !{Html.HiddenFor(x => x.RegistrationFormModel.ReturnUrl)}
+
+  <div class="formInput">
+    <label>Email:</label>
+    !{Html.TextBoxFor(x => x.RegistrationFormModel.EmailAddress)}
+    !{Html.ValidationMessageFor(x => x.RegistrationFormModel.EmailAddress)}
+  </div>
+
+  <div class="formInput">
+    <label>Password:</label>
+    !{Html.PasswordFor(x => x.RegistrationFormModel.Password)}
+    !{Html.ValidationMessageFor(x => x.RegistrationFormModel.Password)}
+  </div>
+
+  <div class="formInput">
+    <label>Confirm Password:</label>
+    !{Html.PasswordFor(x => x.RegistrationFormModel.ConfirmPassword)}
+    !{Html.ValidationMessageFor(x => x.RegistrationFormModel.ConfirmPassword)}
+  </div>
+
+  <button type="submit">Register</button>
+</form>
