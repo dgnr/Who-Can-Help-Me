@@ -1,7 +1,7 @@
-﻿<viewdata model="WhoCanHelpMe.Web.Controllers.User.ViewModels.LoginPageViewModel"/>
+﻿<viewdata model="WhoCanHelpMe.Web.Controllers.User.ViewModels.RegisterPageViewModel"/>
 
 <content name="title">
-Who goes there?
+Who are you?
 </content>
 
 #Html.EnableClientValidation();
@@ -10,10 +10,9 @@ Who goes there?
 
 <h2>Identify yourself!</h2>
 
-<h3>Please sign in with your email address and password, or <a href="Register">click here to register.</a></h3>
+<h3>Please tell us your email address and choose a password.</h3>
 
-<form method="post" action="Authenticate">
-
+<form method="post" action="Register">
   !{Html.AntiForgeryToken()}
   !{Html.HiddenFor(x => x.FormModel.ReturnUrl)}
 
@@ -29,5 +28,11 @@ Who goes there?
     !{Html.ValidationMessageFor(x => x.FormModel.Password)}
   </div>
 
-  <button type="submit">Log in</button>
+  <div class="formInput">
+    <label>Confirm Password:</label>
+    !{Html.PasswordFor(x => x.FormModel.ConfirmPassword)}
+    !{Html.ValidationMessageFor(x => x.FormModel.ConfirmPassword)}
+  </div>
+
+  <button type="submit">Register</button>
 </form>

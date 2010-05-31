@@ -10,22 +10,22 @@ namespace WhoCanHelpMe.Web.Controllers.User.Mappers
 
     #endregion
 
-    public class LoginPageViewModelMapper : ILoginPageViewModelMapper
+    public class RegisterPageViewModelMapper : IRegisterPageViewModelMapper
     {
         private readonly IPageViewModelBuilder pageViewModelBuilder;
 
-        public LoginPageViewModelMapper(IPageViewModelBuilder pageViewModelBuilder)
+        public RegisterPageViewModelMapper(IPageViewModelBuilder pageViewModelBuilder)
         {
             this.pageViewModelBuilder = pageViewModelBuilder;
         }
 
-        public LoginPageViewModel MapFrom(
+        public RegisterPageViewModel MapFrom(
             string message,
             string returnUrl)
         {
-            var viewModel = new LoginPageViewModel
+            var viewModel = new RegisterPageViewModel
                 {
-                    Message = message ?? string.Empty,
+                    Message = message ?? string.Empty, 
                     FormModel = { ReturnUrl = returnUrl },
                 };
 

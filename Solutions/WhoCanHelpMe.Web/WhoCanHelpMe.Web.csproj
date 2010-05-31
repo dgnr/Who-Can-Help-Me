@@ -282,6 +282,7 @@
     <None Include="Views\Shared\_Scripts.spark" />
     <None Include="Views\Shared\_Styles.spark" />
     <None Include="Views\Shared\_SeoContent.spark" />
+    <None Include="Views\User\Register.spark" />
     <None Include="Views\User\Login.spark" />
     <None Include="Views\_Content\css\site.less" />
     <Content Include="Web.Debug.config">

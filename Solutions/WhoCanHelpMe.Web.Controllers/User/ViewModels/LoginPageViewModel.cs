@@ -8,10 +8,13 @@ namespace WhoCanHelpMe.Web.Controllers.User.ViewModels
 
     public class LoginPageViewModel : PageViewModel
     {
+        public LoginPageViewModel()
+        {
+            this.FormModel = new LoginFormModel();
+        }
+
         public string Message { get; set; }
 
-        public LoginFormModel LoginFormModel { get; set; }
-
-        public RegistrationFormModel RegistrationFormModel { get; set; }    
+        public LoginFormModel FormModel { get; set; }
     }
 }
