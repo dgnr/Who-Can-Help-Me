@@ -15,14 +15,14 @@ Hey there stranger!
 
 	<div class="formInput">
     <label>First name:</label>
-		!{Html.TextBoxFor(x => x.FirstName)}
-		!{Html.ValidationMessageFor(x => x.FirstName)}
-	</div>
+    !{Html.TextBoxFor(x => x.FormModel.FirstName)}
+    !{Html.ValidationMessageFor(x => x.FormModel.FirstName)}
+  </div>
 
 	<div class="formInput">
     <label>Last name:</label>
-    !{Html.TextBoxFor(x => x.LastName)}
-    !{Html.ValidationMessageFor(x => x.LastName)}
+    !{Html.TextBoxFor(x => x.FormModel.LastName)}
+    !{Html.ValidationMessageFor(x => x.FormModel.LastName)}
   </div>
 
   <button type="submit">Continue</button>

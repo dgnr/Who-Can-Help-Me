@@ -79,10 +79,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ReferencedAssemblies\Microsoft\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.Validator, Version=1.2.0.3001, Culture=neutral, PublicKeyToken=70154e18752585bd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ReferencedAssemblies\NHibernate\NHibernate.Validator.dll</HintPath>
-    </Reference>
     <Reference Include="SharpArch.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b5f559ae0ac4e006, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ReferencedAssemblies\SharpArchitecture\SharpArch.Core.dll</HintPath>
@@ -101,7 +97,6 @@
     <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AddAssertionDetails.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Contracts\Configuration\IAnalyticsConfiguration.cs" />
     <Compile Include="Contracts\Configuration\INewsConfiguration.cs" />
@@ -123,7 +118,6 @@
     <Compile Include="Contracts\Tasks\ISiteMetaDataTasks.cs" />
     <Compile Include="Contracts\Tasks\ITagTasks.cs" />
     <Compile Include="Contracts\Tasks\IProfileTasks.cs" />
-    <Compile Include="CreateProfileDetails.cs" />
     <Compile Include="Identity.cs" />
     <Compile Include="NewsItem.cs" />
     <Compile Include="Contracts\Services\INewsService.cs" />
@@ -142,7 +136,6 @@
     <Compile Include="Specifications\TagByFirstCharactersOfNameSpecification.cs" />
     <Compile Include="Specifications\TagByNameSpecification.cs" />
     <Compile Include="Tag.cs" />
-    <Compile Include="ValidatableValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

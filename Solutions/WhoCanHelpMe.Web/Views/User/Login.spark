@@ -10,7 +10,7 @@ Who goes there?
 
 <h2>Identify yourself!</h2>
 
-<h3>Please sign in with your email address and password, or <a href="Register">click here to register.</a></h3>
+<h3>Please sign in with your email address and password, or <a href="Register?ReturnUrl=${Model.FormModel.ReturnUrl}">click here to register.</a></h3>
 
 <form method="post" action="Authenticate">
 

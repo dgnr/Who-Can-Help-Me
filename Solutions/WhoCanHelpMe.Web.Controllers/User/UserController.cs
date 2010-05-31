@@ -46,15 +46,15 @@
         [ModelStateToTempData]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Authenticate(LoginFormModel loginFormModel)
+        public ActionResult Authenticate(LoginFormModel formModel)
         {
             if (this.ModelState.IsValid)
             {
                 try
                 {
-                    this.identityTasks.Authenticate(loginFormModel.EmailAddress, loginFormModel.Password);
+                    this.identityTasks.Authenticate(formModel.EmailAddress, formModel.Password);
 
-                    return this.BuildSuccessfulLoginRedirectResult(loginFormModel.ReturnUrl);
+                    return this.BuildSuccessfulLoginRedirectResult(formModel.ReturnUrl);
                 }
                 catch (AuthenticationException ex)
                 {
@@ -62,7 +62,7 @@
                 }
             }
 
-            return this.RedirectToAction(x => x.Login(loginFormModel.ReturnUrl));
+            return this.RedirectToAction(x => x.Login(formModel.ReturnUrl));
         }
 
         [HttpGet]
@@ -96,16 +96,15 @@
         [ModelStateToTempData]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegistrationFormModel registrationFormModel)
+        public ActionResult Register(RegistrationFormModel formModel)
         {
             if (this.ModelState.IsValid)
             {
                 try
                 {
-                    // TODO: Validate the registrationFormModel, ensure that the two passwords are the same.
-                    this.identityTasks.Register(registrationFormModel.EmailAddress, registrationFormModel.Password);
+                    this.identityTasks.Register(formModel.EmailAddress, formModel.Password);
 
-                    return this.BuildSuccessfulLoginRedirectResult(registrationFormModel.ReturnUrl);
+                    return this.BuildSuccessfulLoginRedirectResult(formModel.ReturnUrl);
                 }
                 catch (AuthenticationException ex)
                 {
@@ -113,7 +112,7 @@
                 }
             }
 
-            return this.RedirectToAction(x => x.Register(registrationFormModel.ReturnUrl));
+            return this.RedirectToAction(x => x.Register(formModel.ReturnUrl));
         }
 
         public ActionResult Register(string returnUrl)

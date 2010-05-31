@@ -3,6 +3,7 @@
     #region Using Directives
 
     using System;
+    using System.Diagnostics.Contracts;
     using System.Linq;
 
     using Domain;
@@ -11,7 +12,9 @@
     using Domain.Specifications;
 
     using Framework.Validation;
-    using xVal.ServerSide;
+    using Framework.Extensions;
+
+    using SharpArch.Core;
 
     #endregion
 
@@ -35,21 +38,23 @@
             this.categoryRepository = categoryRepository;
         }
 
-        public void AddAssertion(AddAssertionDetails addAssertionDetails) 
+        public void AddAssertion(string userName, int categoryId, string tagName) 
         {
-            addAssertionDetails.Validate();
+            Check.Require(!userName.IsNullOrEmpty(), "userName is required.");
+            Check.Require(!tagName.IsNullOrEmpty(), "tagName is required.");
+            Check.Require(categoryId > 0, "categoryId must be greater than 0");
 
             // TODO: Ideally we want a transaction here as we are potentially doing two updates.
 
-            var profile = this.GetProfileByUserName(addAssertionDetails.UserName);
+            var profile = this.GetProfileByUserName(userName);
 
-            var tag = this.tagRepository.FindOne(new TagByNameSpecification(addAssertionDetails.TagName));
+            var tag = this.tagRepository.FindOne(new TagByNameSpecification(tagName));
 
             if (tag == null)
             {
                 tag = new Tag 
                     {
-                        Name = addAssertionDetails.TagName
+                        Name = tagName
                     };
 
                 this.tagRepository.Save(tag);
@@ -57,13 +62,14 @@
 
             // See if there's already an assertion for this tag/category combination
             var existingAssertion = profile.Assertions.FirstOrDefault(
-                a => (a.Tag == tag) && (a.Category.Id == addAssertionDetails.CategoryId));
+                a => (a.Tag == tag) && (a.Category.Id == categoryId));
 
             // If not add it. If there is, do nothing further - there's no point returning an error, since the user has what they wanted
             if (existingAssertion == null)
             {
-                var category = this.GetCategory(addAssertionDetails.CategoryId);
+                var category = this.GetCategory(categoryId);
 
+                // TODO: More validation... what if category is null.
                 var newAssertion = new Assertion
                     {
                         Profile = profile,
@@ -77,31 +83,29 @@
             }
         }
 
-        public void CreateProfile(CreateProfileDetails createProfileDetails)
+        public void CreateProfile(string userName, string firstName, string lastName)
         {
-            createProfileDetails.Validate();
+            Check.Require(!userName.IsNullOrEmpty(), "userName is required.");
+            Check.Require(!firstName.IsNullOrEmpty(), "firstName is required.");
+            Check.Require(!lastName.IsNullOrEmpty(), "lastName is required.");
 
-            var profile = new Profile {
-                                          UserName = createProfileDetails.UserName,
-                                          FirstName = createProfileDetails.FirstName,
-                                          LastName = createProfileDetails.LastName,
-                                          CreatedOn = DateTime.Now.Date
-                                      };
+            var profile = new Profile
+            {
+                UserName = userName,
+                FirstName = firstName,
+                LastName = lastName,
+                CreatedOn = DateTime.Now.Date
+            };
 
-            try
-            {
-                this.profileRepository.Save(profile);
-            }
-            catch (Exception)
-            {
-                // Catching DB unique constraint violation and converting to validation error
-                // Should use nhibernate sql exception convertor to do this properly
-                throw new RulesException("UserName", "User name already exists");
-            }
+            // Should use nhibernate sql exception convertor to catch unique constraint violation and convert 
+            // to an appropriate exception type.
+            this.profileRepository.Save(profile);
         }
 
         public void DeleteProfile(string userId)
         {
+            Check.Require(!userId.IsNullOrEmpty());
+
             var profile = this.GetProfileByUserName(userId);
 
             if (profile != null)
@@ -134,13 +138,11 @@
 
         Category GetCategory(int categoryId)
         {
+            Check.Require(categoryId > 0);
+
             var category = this.categoryRepository.FindOne(new CategoryByIdSpecification(categoryId));
-            
-            if (category == null)
-            {
-                // If no category found, throw validation exception.
-                throw new RulesException("CategoryId", "Invalid Category Id");
-            }
+
+            Check.Ensure(category != null, "The specified category does not exist.");
 
             return category;
         }

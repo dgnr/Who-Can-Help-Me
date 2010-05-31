@@ -10,7 +10,8 @@
 
     #endregion
 
-    public interface ICreateProfilePageViewModelMapper : IMapper<CreateProfileDetails, CreateProfilePageViewModel>
+    public interface ICreateProfilePageViewModelBuilder
     {
+        CreateProfilePageViewModel Get();
     }
 }
