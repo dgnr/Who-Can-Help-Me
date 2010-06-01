@@ -1,23 +1,15 @@
-﻿using System;
-
-namespace WhoCanHelpMe.Tasks
+﻿namespace WhoCanHelpMe.Infrastructure.Security
 {
     #region Using Directives
 
     using System.Security.Authentication;
     using System.Web;
     using System.Web.Security;
-
-    using Domain;
-    using Domain.Contracts.Tasks;
-
-    using DotNetOpenAuth.Messaging;
-    using DotNetOpenAuth.OpenId;
-    using DotNetOpenAuth.OpenId.RelyingParty;
+    using WhoCanHelpMe.Framework.Security;
 
     #endregion
 
-    public class IdentityTasks : IIdentityTasks
+    public class IdentityService : IIdentityService
     {
         public void Authenticate(string userName, string password)
         {

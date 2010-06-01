@@ -5,16 +5,16 @@
     using System.Web.Mvc;
 
     using Domain.Contracts.Tasks;
-
+    using Framework.Security;
     using ViewModels;
 
     #endregion
 
     public class NavigationController : BaseController
     {
-        private readonly IIdentityTasks identityTasks;
+        private readonly IIdentityService identityTasks;
 
-        public NavigationController(IIdentityTasks identityTasks)
+        public NavigationController(IIdentityService identityTasks)
         {
             this.identityTasks = identityTasks;
         }

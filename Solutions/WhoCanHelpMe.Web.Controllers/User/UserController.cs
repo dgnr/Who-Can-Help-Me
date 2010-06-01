@@ -4,7 +4,7 @@
 
     using System.Security.Authentication;
     using System.Web.Mvc;
-
+    using Framework.Security;
     using MvcContrib;
     using MvcContrib.Filters;
 
@@ -19,7 +19,7 @@
     {
         #region Constants and Fields
 
-        private readonly IIdentityTasks identityTasks;
+        private readonly IIdentityService identityTasks;
 
         private readonly ILoginPageViewModelMapper loginPageViewModelMapper;
 
@@ -30,7 +30,7 @@
         #region Constructors and Destructors
 
         public UserController(
-            IIdentityTasks identityTasks, 
+            IIdentityService identityTasks, 
             ILoginPageViewModelMapper loginPageViewModelMapper, 
             IRegisterPageViewModelMapper registerPageViewModelMapper)
         {

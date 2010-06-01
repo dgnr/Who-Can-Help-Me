@@ -1,4 +1,4 @@
-namespace WhoCanHelpMe.Domain
+namespace WhoCanHelpMe.Framework.Security
 {
     #region Using Directives
 

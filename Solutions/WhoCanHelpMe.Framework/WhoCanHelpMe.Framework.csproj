@@ -123,9 +123,11 @@
     <Compile Include="Enumerable\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\WindsorExtensions.cs" />
+    <Compile Include="Security\Identity.cs" />
     <Compile Include="Mapper\BaseMapper.cs" />
     <Compile Include="Mapper\Extensions.cs" />
     <Compile Include="Mapper\IMapper.cs" />
+    <Compile Include="Security\IIdentityService.cs" />
     <Compile Include="Threading\LockableObjectProvider.cs" />
     <Compile Include="Traversal\TraversalExtensions.cs" />
     <Compile Include="Validation\EmailAddressAttribute.cs" />

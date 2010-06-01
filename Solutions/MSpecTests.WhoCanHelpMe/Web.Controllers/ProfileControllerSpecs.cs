@@ -7,6 +7,7 @@
 
     using global::WhoCanHelpMe.Domain;
     using global::WhoCanHelpMe.Domain.Contracts.Tasks;
+    using global::WhoCanHelpMe.Framework.Security;
     using global::WhoCanHelpMe.Web.Controllers.Home;
     using global::WhoCanHelpMe.Web.Controllers.Profile;
     using global::WhoCanHelpMe.Web.Controllers.Profile.Mappers.Contracts;
@@ -25,7 +26,7 @@
     public abstract class specification_for_profile_controller : Specification<ProfileController>
     {
         protected static IProfileTasks user_tasks;
-        protected static IIdentityTasks identity_tasks;
+        protected static IIdentityService identity_tasks;
         protected static ICategoryTasks category_tasks;
         protected static IProfilePageViewModelMapper profile_view_model_mapper;
         protected static ITagTasks tag_tasks;
@@ -33,7 +34,7 @@
             
         Establish context = () =>
             {
-                identity_tasks = DependencyOf<IIdentityTasks>();
+                identity_tasks = DependencyOf<IIdentityService>();
                 user_tasks = DependencyOf<IProfileTasks>();
                 category_tasks = DependencyOf<ICategoryTasks>();
                 profile_view_model_mapper = DependencyOf<IProfilePageViewModelMapper>();

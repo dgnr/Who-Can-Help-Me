@@ -5,6 +5,7 @@
     using System.Web.Mvc;
 
     using global::WhoCanHelpMe.Domain.Contracts.Tasks;
+    using global::WhoCanHelpMe.Framework.Security;
     using global::WhoCanHelpMe.Web.Controllers.Home;
     using global::WhoCanHelpMe.Web.Controllers.Navigation;
     using global::WhoCanHelpMe.Web.Controllers.Navigation.ViewModels;
@@ -17,9 +18,9 @@
 
     public abstract class specification_for_navigation_controller : Specification<NavigationController>
     {
-        protected static IIdentityTasks identity_tasks;
+        protected static IIdentityService identity_tasks;
 
-        Establish context = () => identity_tasks = DependencyOf<IIdentityTasks>();
+        Establish context = () => identity_tasks = DependencyOf<IIdentityService>();
     }
 
     [Subject(typeof(HomeController))]

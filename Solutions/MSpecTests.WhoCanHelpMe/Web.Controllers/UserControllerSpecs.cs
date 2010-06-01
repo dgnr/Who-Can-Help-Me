@@ -8,6 +8,7 @@ namespace MSpecTests.WhoCanHelpMe.Web.Controllers
     using System.Web.Mvc;
 
     using global::WhoCanHelpMe.Domain.Contracts.Tasks;
+    using global::WhoCanHelpMe.Framework.Security;
     using global::WhoCanHelpMe.Web.Controllers.Home;
     using global::WhoCanHelpMe.Web.Controllers.User;
     using global::WhoCanHelpMe.Web.Controllers.User.Mappers.Contracts;
@@ -23,11 +24,11 @@ namespace MSpecTests.WhoCanHelpMe.Web.Controllers
     {
         protected static ILoginPageViewModelMapper login_page_view_model_mapper;
         protected static IRegisterPageViewModelMapper register_page_view_model_mapper;
-        protected static IIdentityTasks identity_tasks;
+        protected static IIdentityService identity_tasks;
 
         Establish context = () =>
             {
-                identity_tasks = DependencyOf<IIdentityTasks>();
+                identity_tasks = DependencyOf<IIdentityService>();
                 login_page_view_model_mapper = DependencyOf<ILoginPageViewModelMapper>();
                 register_page_view_model_mapper = DependencyOf<IRegisterPageViewModelMapper>();
             };

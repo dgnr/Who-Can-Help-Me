@@ -7,7 +7,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
     using ActionFilters;
 
     using Domain.Contracts.Tasks;
-
+    using Framework.Security;
     using Home;
 
     using Mappers.Contracts;
@@ -27,14 +27,14 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
         private readonly ICreateProfilePageViewModelBuilder createProfilePageViewModelMapper;
 
-        private readonly IIdentityTasks identityTasks;
+        private readonly IIdentityService identityTasks;
 
         private readonly IProfilePageViewModelMapper profilePageViewModelMapper;
 
         private readonly IProfileTasks userTasks;
 
         public ProfileController(
-            IIdentityTasks identityTasks,
+            IIdentityService identityTasks,
             IProfileTasks userTasks,
             ICategoryTasks categoryTasks,
             IProfilePageViewModelMapper profilePageViewModelMapper,

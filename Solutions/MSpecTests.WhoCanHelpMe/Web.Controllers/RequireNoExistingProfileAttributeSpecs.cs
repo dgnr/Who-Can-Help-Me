@@ -6,6 +6,7 @@
     using System.Web.Mvc;
     using global::WhoCanHelpMe.Domain;
     using global::WhoCanHelpMe.Domain.Contracts.Tasks;
+    using global::WhoCanHelpMe.Framework.Security;
     using global::WhoCanHelpMe.Web.Controllers.Profile.ActionFilters;
     using Machine.Specifications;
     using Machine.Specifications.AutoMocking.Rhino;
@@ -19,7 +20,7 @@
     {
         protected static ActionExecutingContext filter_context;
         protected static IProfileTasks profile_tasks;
-        protected static IIdentityTasks identity_tasks;
+        protected static IIdentityService identity_tasks;
         protected static string redirect_controller_name;
         protected static string redirect_action_name;
 
@@ -27,7 +28,7 @@
             {
                 ServiceLocatorHelper.InitialiseServiceLocator();
 
-                identity_tasks = An<IIdentityTasks>().AddToServiceLocator();
+                identity_tasks = An<IIdentityService>().AddToServiceLocator();
                 profile_tasks = An<IProfileTasks>().AddToServiceLocator();
 
                 filter_context = new ActionExecutingContext();

@@ -1,6 +1,6 @@
-namespace WhoCanHelpMe.Domain.Contracts.Tasks
+namespace WhoCanHelpMe.Framework.Security
 {
-    public interface IIdentityTasks
+    public interface IIdentityService
     {
         Identity GetCurrentIdentity();
 
