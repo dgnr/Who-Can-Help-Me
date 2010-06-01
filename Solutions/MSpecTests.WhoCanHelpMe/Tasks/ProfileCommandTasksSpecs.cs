@@ -22,6 +22,7 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
 
     public abstract class specification_for_profile_command_tasks : Specification<IProfileCommandTasks, ProfileCommandTasks>
     {
+        protected static IProfileQueryTasks the_profile_query_tasks;
         protected static IProfileRepository the_profile_repository;
         protected static ITagRepository the_tag_repository;
         protected static ICategoryRepository the_category_repository;
@@ -31,6 +32,7 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
                 the_profile_repository = DependencyOf<IProfileRepository>();
                 the_tag_repository = DependencyOf<ITagRepository>();
                 the_category_repository = DependencyOf<ICategoryRepository>();
+                the_profile_query_tasks = DependencyOf<IProfileQueryTasks>();
 
                 ServiceLocatorHelper.InitialiseServiceLocator();
                 ServiceLocatorHelper.AddValidator();
@@ -109,7 +111,7 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
                 the_category = new Category();
                 the_category_id = 10;
 
-                the_profile_repository.StubFindOne().Return(the_profile);
+                the_profile_query_tasks.Stub(q => q.GetProfileByUserName(the_user_name)).Return(the_profile);
 
                 the_category_repository.StubFindOne().Return(the_category);
 
@@ -118,7 +120,7 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
 
         Because of = () => subject.AddAssertion(the_user_name, the_category_id, the_tag_name);
 
-        It should_ask_the_profile_repository_for_the_users_profile = () => the_profile_repository.AssertFindOneWasCalledWithSpecification<ProfileByUserNameSpecification, Profile>(spec => spec.UserName == the_user_name);
+        It should_ask_the_profile_query_tasks_for_the_users_profile = () => the_profile_query_tasks.AssertWasCalled(q => q.GetProfileByUserName(the_user_name));
 
         It should_ask_the_tag_repository_for_the_tag_to_add = () => the_tag_repository.AssertFindOneWasCalledWithSpecification<TagByNameSpecification, Tag>(spec => spec.Name == the_tag_name);
 
@@ -153,7 +155,7 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
                 the_category = new Category();
                 the_category_id = 10;
 
-                the_profile_repository.StubFindOne().Return(the_profile);
+                the_profile_query_tasks.Stub(q => q.GetProfileByUserName(the_user_name)).Return(the_profile);
 
                 the_category_repository.StubFindOne().Return(the_category);
 
@@ -161,8 +163,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
             };
 
         Because of = () => subject.AddAssertion(the_user_name, the_category_id, the_tag_name);
-        
-        It should_ask_the_profile_repository_for_the_users_profile = () => the_profile_repository.AssertFindOneWasCalledWithSpecification<ProfileByUserNameSpecification, Profile>(spec => spec.UserName == the_user_name);
+
+        It should_ask_the_profile_query_tasks_for_the_users_profile = () => the_profile_query_tasks.AssertWasCalled(q => q.GetProfileByUserName(the_user_name));
 
         It should_ask_the_tag_repository_for_the_tag_to_add = () => the_tag_repository.AssertFindOneWasCalledWithSpecification<TagByNameSpecification, Tag>(spec => spec.Name == the_tag_name);
 
@@ -256,7 +258,7 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
 
             the_profile = new Profile();
 
-            the_profile_repository.StubFindOne().Return(the_profile);
+            the_profile_query_tasks.Stub(q => q.GetProfileByUserName(the_user_name)).Return(the_profile);
 
             the_category_repository.StubFindOne().Return(null);
         };
@@ -438,12 +440,12 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
 
                 the_user_id = "user_id";
 
-                the_profile_repository.StubFindOne().Return(the_profile);
+                the_profile_query_tasks.Stub(q => q.GetProfileByUserName(the_user_id)).Return(the_profile);
             };
 
         Because of = () => subject.DeleteProfile(the_user_id);
 
-        It should_ask_the_profile_repository_for_the_users_profile = () => the_profile_repository.AssertFindOneWasCalledWithSpecification<ProfileByUserNameSpecification, Profile>(spec => spec.UserName == the_user_id);
+        It should_ask_the_profile_query_tasks_for_the_users_profile = () => the_profile_query_tasks.AssertWasCalled(q => q.GetProfileByUserName(the_user_id));
 
         It should_ask_the_profile_repository_to_delete_the_profie = () => the_profile_repository.AssertWasCalled(p => p.Delete(the_profile));
     }
@@ -457,12 +459,12 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         {
             the_user_id = "user_id";
 
-            the_profile_repository.StubFindOne().Return(null);
+            the_profile_query_tasks.Stub(q => q.GetProfileByUserName(the_user_id)).Return(null);
         };
 
         Because of = () => subject.DeleteProfile(the_user_id);
 
-        It should_ask_the_profile_repository_for_the_users_profile = () => the_profile_repository.AssertFindOneWasCalledWithSpecification<ProfileByUserNameSpecification, Profile>(spec => spec.UserName == the_user_id);
+        It should_ask_the_profile_query_tasks_for_the_users_profile = () => the_profile_query_tasks.AssertWasCalled(q => q.GetProfileByUserName(the_user_id));
 
         It should_not_try_and_delete_anything = () => the_profile_repository.AssertWasNotCalled(p => p.Delete(new Profile()), m => m.IgnoreArguments());
     }
