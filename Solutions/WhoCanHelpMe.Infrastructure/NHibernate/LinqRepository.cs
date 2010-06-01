@@ -14,11 +14,6 @@ namespace WhoCanHelpMe.Infrastructure.NHibernate
 
     public class LinqRepository<T> : Repository<T>, ILinqRepository<T>
     {
-        public override void Delete(T target)
-        {
-            this.Session.Delete(target);
-        }
-        
         public T FindOne(int id)
         {
             return this.Session.Get<T>(id);
