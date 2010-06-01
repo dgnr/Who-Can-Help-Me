@@ -20,7 +20,7 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
 
     #endregion
 
-    public abstract class specification_for_profile_tasks : Specification<IProfileTasks, ProfileTasks>
+    public abstract class specification_for_profile_command_tasks : Specification<IProfileCommandTasks, ProfileCommandTasks>
     {
         protected static IProfileRepository the_profile_repository;
         protected static ITagRepository the_tag_repository;
@@ -37,94 +37,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
             };
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_get_a_profile_by_user_name : specification_for_profile_tasks
-    {
-        static Profile result;
-        static string user_name;
-        static Profile the_profile;
-
-        Establish context = () =>
-            {
-                user_name = "user_name";
-
-                the_profile = new Profile();
-
-                the_profile_repository.StubFindOne().Return(the_profile);
-            };
-
-        Because of = () => result = subject.GetProfileByUserName(user_name);
-
-        It should_ask_the_repository_for_the_profile = () => the_profile_repository.AssertFindOneWasCalledWithSpecification<ProfileByUserNameSpecification, Profile>(spec => spec.UserName == user_name);
-
-        It should_return_the_profile_it_retrieved_from_the_repository = () => result.ShouldBeTheSameAs(the_profile);
-    }
-
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_get_a_profile_by_user_name_and_there_is_no_matching_profile : specification_for_profile_tasks
-    {
-        static Profile result;
-        static string user_name;
-
-        Establish context = () =>
-        {
-            user_name = "user_name";
-            the_profile_repository.StubFindOne().Return(null);
-        };
-
-        Because of = () => result = subject.GetProfileByUserName(user_name);
-
-        It should_ask_the_repository_for_the_profile = () => the_profile_repository.AssertFindOneWasCalledWithSpecification<ProfileByUserNameSpecification, Profile>(spec => spec.UserName == user_name);
-
-        It should_return_null = () => result.ShouldBeNull();
-    }
-
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_get_a_profile_by_profile_id : specification_for_profile_tasks
-    {
-        static Profile result;
-        static int profile_id;
-        static Profile the_profile;
-
-        Establish context = () =>
-        {
-            profile_id = 1;
-
-            the_profile = new Profile();
-
-            the_profile_repository.StubFindOne().Return(the_profile);
-        };
-
-        Because of = () => result = subject.GetProfileById(profile_id);
-
-        It should_ask_the_repository_for_the_profile = () => the_profile_repository.AssertFindOneWasCalledWithSpecification<ProfileByIdSpecification, Profile>(spec => spec.Id == profile_id);
-
-        It should_return_the_profile_it_retrieved_from_the_repository = () => result.ShouldBeTheSameAs(the_profile);
-    }
-
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_get_a_profile_by_profile_id_and_there_is_no_matching_profile : specification_for_profile_tasks
-    {
-        static Profile result;
-        static int profile_id;
-        static ProfileByIdSpecification specification;
-
-        Establish context = () =>
-        {
-            profile_id = 1;
-
-            the_profile_repository.StubFindOne().Return(null);
-        };
-
-        Because of = () => result = subject.GetProfileById(profile_id);
-
-        It should_ask_the_repository_for_the_profile = () => the_profile_repository.AssertFindOneWasCalledWithSpecification<ProfileByIdSpecification, Profile>(spec => spec.Id == profile_id);
-
-        It should_return_null = () => result.ShouldBeNull();
-    }
-
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_remove_an_assertion : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_remove_an_assertion : specification_for_profile_command_tasks
     {
         static Profile the_profile;
         static int the_assertion_id;
@@ -152,8 +66,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
             () => the_profile_repository.AssertWasCalled(pr => pr.Save(the_profile));
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_remove_an_assertion_that_does_not_belong_to_the_specified_profile : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_remove_an_assertion_that_does_not_belong_to_the_specified_profile : specification_for_profile_command_tasks
     {
         static Profile the_profile;
         static int the_assertion_id;
@@ -174,8 +88,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
             () => the_profile_repository.AssertWasNotCalled(pr => pr.Save(the_profile));
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_add_an_assertion_with_an_existing_tag_name : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_add_an_assertion_with_an_existing_tag_name : specification_for_profile_command_tasks
     {
         static Profile the_profile;
         static Tag the_tag;
@@ -220,8 +134,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
             () => the_tag_repository.AssertWasNotCalled(tr => tr.Save(null));
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_add_an_assertion_with_a_new_tag_name : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_add_an_assertion_with_a_new_tag_name : specification_for_profile_command_tasks
     {
         static int the_category_id;
         static string the_tag_name;
@@ -276,8 +190,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
             };
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_add_an_assertion_without_specifying_a_tag_name : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_add_an_assertion_without_specifying_a_tag_name : specification_for_profile_command_tasks
     {
         static int the_category_id;
         static string the_tag_name;
@@ -300,8 +214,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         };
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_add_an_assertion_without_specifying_a_user_name : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_add_an_assertion_without_specifying_a_user_name : specification_for_profile_command_tasks
     {
         static int the_category_id;
         static string the_tag_name;
@@ -324,8 +238,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         };
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_add_an_assertion_with_an_invalid_category_id : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_add_an_assertion_with_an_invalid_category_id : specification_for_profile_command_tasks
     {
         static int the_category_id;
         static string the_tag_name;
@@ -356,8 +270,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         };
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_create_a_profile : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_create_a_profile : specification_for_profile_command_tasks
     {
         static string the_first_name;
         static string the_last_name;
@@ -397,8 +311,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
 
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_create_a_profile_without_specifying_a_user_name : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_create_a_profile_without_specifying_a_user_name : specification_for_profile_command_tasks
     {
         static string the_first_name;
         static string the_last_name;
@@ -422,8 +336,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         };
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_create_a_profile_without_specifying_a_first_name : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_create_a_profile_without_specifying_a_first_name : specification_for_profile_command_tasks
     {
         static string the_first_name;
         static string the_last_name;
@@ -447,8 +361,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         };
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_create_a_profile_without_specifying_a_last_name : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_create_a_profile_without_specifying_a_last_name : specification_for_profile_command_tasks
     {
         static Exception the_exception;
 
@@ -472,8 +386,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         };
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_create_a_profile_with_a_user_name_that_already_has_a_profile : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_create_a_profile_with_a_user_name_that_already_has_a_profile : specification_for_profile_command_tasks
     {
         static Profile the_profile;
         static Exception the_unique_constraint_exception;
@@ -511,8 +425,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         It should_throw_a_precondition_exception;
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_delete_a_profile : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_delete_a_profile : specification_for_profile_command_tasks
     {
         static Profile the_profile;
         static string the_user_id;
@@ -534,8 +448,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         It should_ask_the_profile_repository_to_delete_the_profie = () => the_profile_repository.AssertWasCalled(p => p.Delete(the_profile));
     }
 
-    [Subject(typeof(ProfileTasks))]
-    public class when_the_profile_tasks_is_asked_to_delete_a_profile_for_a_user_name_that_does_not_have_a_profile : specification_for_profile_tasks
+    [Subject(typeof(ProfileCommandTasks))]
+    public class when_the_profile_command_tasks_is_asked_to_delete_a_profile_for_a_user_name_that_does_not_have_a_profile : specification_for_profile_command_tasks
     {
         static string the_user_id;
 

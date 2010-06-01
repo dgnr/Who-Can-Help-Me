@@ -116,8 +116,9 @@
     </Compile>
     <Compile Include="ServiceLocatorHelper.cs" />
     <Compile Include="Tasks\CategoryTasksSpecs.cs" />
+    <Compile Include="Tasks\ProfileQueryTasksSpecs.cs" />
     <Compile Include="Tasks\NewsTasksSpecs.cs" />
-    <Compile Include="Tasks\ProfileTasksSpecs.cs" />
+    <Compile Include="Tasks\ProfileCommandTasksSpecs.cs" />
     <Compile Include="Tasks\SearchTasksSpecs.cs" />
     <Compile Include="Tasks\SiteMetaDataTasks.cs" />
     <Compile Include="Tasks\TagTasksSpecs.cs" />

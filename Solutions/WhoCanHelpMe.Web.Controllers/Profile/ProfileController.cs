@@ -31,17 +31,21 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
         private readonly IProfilePageViewModelMapper profilePageViewModelMapper;
 
-        private readonly IProfileTasks userTasks;
-
+        private readonly IProfileQueryTasks profileQueryTasks;
+        
+        private readonly IProfileCommandTasks profileCommandTasks;
+        
         public ProfileController(
             IIdentityService identityTasks,
-            IProfileTasks userTasks,
+            IProfileQueryTasks profileQueryTasks,
+            IProfileCommandTasks profileCommandTasks,
             ICategoryTasks categoryTasks,
             IProfilePageViewModelMapper profilePageViewModelMapper,
             ICreateProfilePageViewModelBuilder createProfilePageViewModelMapper)
         {
             this.identityTasks = identityTasks;
-            this.userTasks = userTasks;
+            this.profileQueryTasks = profileQueryTasks;
+            this.profileCommandTasks = profileCommandTasks;
             this.categoryTasks = categoryTasks;
             this.profilePageViewModelMapper = profilePageViewModelMapper;
             this.createProfilePageViewModelMapper = createProfilePageViewModelMapper;
@@ -69,7 +73,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
             {
                 var identity = this.identityTasks.GetCurrentIdentity();
 
-                this.userTasks.CreateProfile(identity.UserName, formModel.FirstName, formModel.LastName);
+                this.profileCommandTasks.CreateProfile(identity.UserName, formModel.FirstName, formModel.LastName);
 
                 return this.RedirectToAction(x => x.Update());
             }
@@ -84,7 +88,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
         {
             var identity = this.identityTasks.GetCurrentIdentity();
 
-            this.userTasks.DeleteProfile(identity.UserName);
+            this.profileCommandTasks.DeleteProfile(identity.UserName);
 
             return this.RedirectToAction<HomeController>(x => x.Index());
         }
@@ -96,9 +100,9 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
         {
             var identity = this.identityTasks.GetCurrentIdentity();
 
-            var user = this.userTasks.GetProfileByUserName(identity.UserName);
+            var user = this.profileQueryTasks.GetProfileByUserName(identity.UserName);
 
-            this.userTasks.RemoveAssertion(
+            this.profileCommandTasks.RemoveAssertion(
                 user,
                 assertionId);
 
@@ -119,7 +123,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
         {
             var identity = this.identityTasks.GetCurrentIdentity();
 
-            var user = this.userTasks.GetProfileByUserName(identity.UserName);
+            var user = this.profileQueryTasks.GetProfileByUserName(identity.UserName);
 
             var categories = this.categoryTasks.GetAll();
 
@@ -141,7 +145,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
             {
                 var identity = this.identityTasks.GetCurrentIdentity();
 
-                this.userTasks.AddAssertion(identity.UserName, formModel.CategoryId, formModel.TagName);
+                this.profileCommandTasks.AddAssertion(identity.UserName, formModel.CategoryId, formModel.TagName);
             }
 
             return this.RedirectToAction(x => x.Update());
@@ -150,7 +154,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
         [HttpGet]
         public ActionResult View(int id)
         {
-            var user = this.userTasks.GetProfileById(id);
+            var user = this.profileQueryTasks.GetProfileById(id);
 
             if (user != null)
             {

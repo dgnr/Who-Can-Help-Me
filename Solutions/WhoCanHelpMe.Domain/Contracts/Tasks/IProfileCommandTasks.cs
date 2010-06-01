@@ -1,11 +1,7 @@
 namespace WhoCanHelpMe.Domain.Contracts.Tasks
 {
-    public interface IProfileTasks
+    public interface IProfileCommandTasks
     {
-        Profile GetProfileByUserName(string userName);
-
-        Profile GetProfileById(int profileId);
-
         void RemoveAssertion(Profile profile, int assertionId);
 
         void AddAssertion(string userName, int categoryId, string tagName);

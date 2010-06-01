@@ -18,27 +18,26 @@
 
     #endregion
 
-    public class ProfileTasks : IProfileTasks
+    public class ProfileCommandTasks : IProfileCommandTasks
     {
-        #region Fields
-
         private readonly ICategoryRepository categoryRepository;
         private readonly IProfileRepository profileRepository;
         private readonly ITagRepository tagRepository;
+        private readonly IProfileQueryTasks profileQueryTasks;
 
-        #endregion
-
-        public ProfileTasks(
+        public ProfileCommandTasks(
             IProfileRepository profileRepository, 
             ITagRepository tagRepository,
-            ICategoryRepository categoryRepository)
+            ICategoryRepository categoryRepository, 
+            IProfileQueryTasks profileQueryTasks)
         {
             this.profileRepository = profileRepository;
+            this.profileQueryTasks = profileQueryTasks;
             this.tagRepository = tagRepository;
             this.categoryRepository = categoryRepository;
         }
 
-        public void AddAssertion(string userName, int categoryId, string tagName) 
+        public void AddAssertion(string userName, int categoryId, string tagName)
         {
             Check.Require(!userName.IsNullOrEmpty(), "userName is required.");
             Check.Require(!tagName.IsNullOrEmpty(), "tagName is required.");
@@ -46,16 +45,16 @@
 
             // TODO: Ideally we want a transaction here as we are potentially doing two updates.
 
-            var profile = this.GetProfileByUserName(userName);
+            var profile = this.profileQueryTasks.GetProfileByUserName(userName);
 
             var tag = this.tagRepository.FindOne(new TagByNameSpecification(tagName));
 
             if (tag == null)
             {
-                tag = new Tag 
-                    {
-                        Name = tagName
-                    };
+                tag = new Tag
+                {
+                    Name = tagName
+                };
 
                 this.tagRepository.Save(tag);
             }
@@ -71,11 +70,11 @@
 
                 // TODO: More validation... what if category is null.
                 var newAssertion = new Assertion
-                    {
-                        Profile = profile,
-                        Category = category,
-                        Tag = tag
-                    };
+                {
+                    Profile = profile,
+                    Category = category,
+                    Tag = tag
+                };
 
                 profile.Assertions.Add(newAssertion);
 
@@ -106,7 +105,7 @@
         {
             Check.Require(!userId.IsNullOrEmpty());
 
-            var profile = this.GetProfileByUserName(userId);
+            var profile = this.profileQueryTasks.GetProfileByUserName(userId);
 
             if (profile != null)
             {
@@ -114,15 +113,6 @@
             }
         }
 
-        public Profile GetProfileById(int profileId)
-        {
-            return this.profileRepository.FindOne(new ProfileByIdSpecification(profileId));
-        }
-
-        public Profile GetProfileByUserName(string userName)
-        {
-            return this.profileRepository.FindOne(new ProfileByUserNameSpecification(userName));
-        }
 
         public void RemoveAssertion(Profile profile, int assertionId)
         {
@@ -136,7 +126,7 @@
             }
         }
 
-        Category GetCategory(int categoryId)
+        private Category GetCategory(int categoryId)
         {
             Check.Require(categoryId > 0);
 
@@ -146,5 +136,6 @@
 
             return category;
         }
+
     }
 }

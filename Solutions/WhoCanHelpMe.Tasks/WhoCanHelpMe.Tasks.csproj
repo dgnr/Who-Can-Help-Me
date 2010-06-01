@@ -102,13 +102,14 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CategoryTasks.cs" />
+    <Compile Include="ProfileWriteTasks.cs" />
     <Compile Include="NewsTasks.cs" />
     <Compile Include="Properties\TasksRegistrarMarker.cs" />
     <Compile Include="Registrars\TaskRegistrar.cs" />
     <Compile Include="SearchTasks.cs" />
     <Compile Include="SiteMetaDataTasks.cs" />
     <Compile Include="TagTasks.cs" />
-    <Compile Include="ProfileTasks.cs" />
+    <Compile Include="ProfileReadTasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WhoCanHelpMe.Domain\WhoCanHelpMe.Domain.csproj">

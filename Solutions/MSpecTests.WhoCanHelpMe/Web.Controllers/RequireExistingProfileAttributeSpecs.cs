@@ -19,7 +19,7 @@
     public abstract class specification_for_require_existing_profile_attribute : Specification<RequireExistingProfileAttribute>
     {
         protected static ActionExecutingContext filter_context;
-        protected static IProfileTasks profile_tasks;
+        protected static IProfileQueryTasks profile_tasks;
         protected static IIdentityService identity_tasks;
         protected static string redirect_controller_name;
         protected static string redirect_action_name;
@@ -29,7 +29,7 @@
                 ServiceLocatorHelper.InitialiseServiceLocator();
 
                 identity_tasks = An<IIdentityService>().AddToServiceLocator();
-                profile_tasks = An<IProfileTasks>().AddToServiceLocator();
+                profile_tasks = An<IProfileQueryTasks>().AddToServiceLocator();
 
                 filter_context = new ActionExecutingContext();
             };

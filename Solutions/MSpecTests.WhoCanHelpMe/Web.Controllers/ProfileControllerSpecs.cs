@@ -25,7 +25,8 @@
 
     public abstract class specification_for_profile_controller : Specification<ProfileController>
     {
-        protected static IProfileTasks user_tasks;
+        protected static IProfileCommandTasks profile_command_tasks;
+        protected static IProfileQueryTasks profile_query_tasks;
         protected static IIdentityService identity_tasks;
         protected static ICategoryTasks category_tasks;
         protected static IProfilePageViewModelMapper profile_view_model_mapper;
@@ -35,7 +36,8 @@
         Establish context = () =>
             {
                 identity_tasks = DependencyOf<IIdentityService>();
-                user_tasks = DependencyOf<IProfileTasks>();
+                profile_command_tasks = DependencyOf<IProfileCommandTasks>();
+                profile_query_tasks = DependencyOf<IProfileQueryTasks>();
                 category_tasks = DependencyOf<ICategoryTasks>();
                 profile_view_model_mapper = DependencyOf<IProfilePageViewModelMapper>();
                 create_profile_page_view_model_builder = DependencyOf<ICreateProfilePageViewModelBuilder>();
@@ -104,7 +106,7 @@
             () => identity_tasks.AssertWasCalled(i => i.GetCurrentIdentity());
 
         It should_ask_the_user_tasks_to_create_the_new_profile =
-            () => user_tasks.AssertWasCalled(u => u.CreateProfile(user_name, first_name, last_name));
+            () => profile_command_tasks.AssertWasCalled(u => u.CreateProfile(user_name, first_name, last_name));
 
         It should_redirect_to_the_update_action =
             () => result.ShouldRedirectToAction<ProfileController>(x => x.Update()); 
@@ -133,7 +135,7 @@
             () => identity_tasks.AssertWasCalled(i => i.GetCurrentIdentity());
 
         It should_ask_the_user_tasks_to_delete_the_profile =
-            () => user_tasks.AssertWasCalled(u => u.DeleteProfile(user_name));
+            () => profile_command_tasks.AssertWasCalled(u => u.DeleteProfile(user_name));
 
         It should_redirect_to_home =
             () => result.ShouldRedirectToAction<HomeController>(x => x.Index());
@@ -163,7 +165,7 @@
 
             identity_tasks.Stub(it => it.GetCurrentIdentity()).Return(the_current_identity);
 
-            user_tasks.Stub(ut => ut.GetProfileByUserName(the_user_name)).Return(the_retrieved_profile);
+            profile_query_tasks.Stub(ut => ut.GetProfileByUserName(the_user_name)).Return(the_retrieved_profile);
         };
 
         Because of = () => result = subject.DeleteAssertion(the_assertion_id);
@@ -172,10 +174,10 @@
             () => identity_tasks.AssertWasCalled(i => i.GetCurrentIdentity());
 
         It should_ask_the_user_tasks_for_the_user =
-            () => user_tasks.AssertWasCalled(u => u.GetProfileByUserName(the_user_name));
+            () => profile_query_tasks.AssertWasCalled(u => u.GetProfileByUserName(the_user_name));
 
         It should_tell_the_user_tasks_to_remove_the_assertion =
-            () => user_tasks.AssertWasCalled(u => u.RemoveAssertion(the_retrieved_profile, the_assertion_id));
+            () => profile_command_tasks.AssertWasCalled(u => u.RemoveAssertion(the_retrieved_profile, the_assertion_id));
 
         It should_redirect_to_the_update_action =
             () => result.ShouldRedirectToAction<ProfileController>(x => x.Update());
@@ -214,7 +216,7 @@
 
             the_view_model = new ProfilePageViewModel();
 
-            user_tasks.Stub(ut => ut.GetProfileByUserName(the_user_name)).Return(the_retrieved_profile);
+            profile_query_tasks.Stub(ut => ut.GetProfileByUserName(the_user_name)).Return(the_retrieved_profile);
 
             all_categories = new List<Category>();
 
@@ -231,7 +233,7 @@
             () => identity_tasks.AssertWasCalled(i => i.GetCurrentIdentity());
 
         It should_ask_the_user_tasks_for_the_user =
-            () => user_tasks.AssertWasCalled(u => u.GetProfileByUserName(the_user_name));
+            () => profile_query_tasks.AssertWasCalled(u => u.GetProfileByUserName(the_user_name));
 
         It should_ask_the_category_tasks_for_all_categories =
             () => category_tasks.AssertWasCalled(c => c.GetAll());
@@ -282,7 +284,7 @@
             () => identity_tasks.AssertWasCalled(i => i.GetCurrentIdentity());
 
         It should_ask_the_user_tasks_to_add_the_new_assertion =
-            () => user_tasks.AssertWasCalled(u => u.AddAssertion(user_name, category_id, tag_name));
+            () => profile_command_tasks.AssertWasCalled(u => u.AddAssertion(user_name, category_id, tag_name));
 
         It should_redirect_to_the_update_action =
             () => result.ShouldRedirectToAction<ProfileController>(x => x.Update());
@@ -302,7 +304,7 @@
 
             the_retrieved_profile = new Profile();
 
-            user_tasks.Stub(ut => ut.GetProfileById(the_user_id)).Return(the_retrieved_profile);
+            profile_query_tasks.Stub(ut => ut.GetProfileById(the_user_id)).Return(the_retrieved_profile);
 
             the_view_model = new ProfilePageViewModel();
 
@@ -312,7 +314,7 @@
         Because of = () => result = subject.View(the_user_id);
 
         It should_ask_the_user_tasks_for_the_user =
-            () => user_tasks.AssertWasCalled(u => u.GetProfileById(the_user_id));
+            () => profile_query_tasks.AssertWasCalled(u => u.GetProfileById(the_user_id));
 
         It should_ask_the_profile_view_model_mapper_to_map_the_user =
             () => profile_view_model_mapper.AssertWasCalled(m => m.MapFrom(the_retrieved_profile));
@@ -334,12 +336,12 @@
             {
                 the_user_id = 10;
 
-                user_tasks.Stub(ut => ut.GetProfileById(the_user_id)).Return(null);
+                profile_query_tasks.Stub(ut => ut.GetProfileById(the_user_id)).Return(null);
             };
 
         Because of = () => result = subject.View(the_user_id);
 
-        It should_ask_the_user_tasks_for_the_profile = () => user_tasks.AssertWasCalled(u => u.GetProfileById(the_user_id));
+        It should_ask_the_user_tasks_for_the_profile = () => profile_query_tasks.AssertWasCalled(u => u.GetProfileById(the_user_id));
 
         It should_return_a_not_found_result = () => result.ShouldBeOfType<NotFoundResult>();
     }

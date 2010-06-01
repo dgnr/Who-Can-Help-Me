@@ -113,10 +113,11 @@
     <Compile Include="Contracts\Specifications\ISpecification.cs" />
     <Compile Include="Contracts\Tasks\ICategoryTasks.cs" />
     <Compile Include="Contracts\Tasks\INewsTasks.cs" />
+    <Compile Include="Contracts\Tasks\IProfileQueryTasks.cs" />
     <Compile Include="Contracts\Tasks\ISearchTasks.cs" />
     <Compile Include="Contracts\Tasks\ISiteMetaDataTasks.cs" />
     <Compile Include="Contracts\Tasks\ITagTasks.cs" />
-    <Compile Include="Contracts\Tasks\IProfileTasks.cs" />
+    <Compile Include="Contracts\Tasks\IProfileCommandTasks.cs" />
     <Compile Include="NewsItem.cs" />
     <Compile Include="Contracts\Services\INewsService.cs" />
     <Compile Include="Profile.cs" />

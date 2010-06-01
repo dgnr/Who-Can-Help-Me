@@ -16,7 +16,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.ActionFilters
     {
         private readonly IIdentityService identityService;
 
-        private readonly IProfileTasks profileTasks;
+        private readonly IProfileQueryTasks profileQueryTasks;
 
         private readonly string redirectAction;
 
@@ -29,7 +29,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.ActionFilters
             this.redirectController = redirectController;
             this.redirectAction = redirectAction;
             this.identityService = ServiceLocator.Current.GetInstance<IIdentityService>();
-            this.profileTasks = ServiceLocator.Current.GetInstance<IProfileTasks>();
+            this.profileQueryTasks = ServiceLocator.Current.GetInstance<IProfileQueryTasks>();
         }
 
         protected void DoRedirect(ActionExecutingContext filterContext)
@@ -47,7 +47,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.ActionFilters
         {
             var identity = this.identityService.GetCurrentIdentity();
 
-            return this.profileTasks.GetProfileByUserName(identity.UserName);
+            return this.profileQueryTasks.GetProfileByUserName(identity.UserName);
         }
     }
 }
