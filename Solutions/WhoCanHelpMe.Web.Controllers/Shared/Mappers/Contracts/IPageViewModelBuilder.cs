@@ -6,10 +6,8 @@ namespace WhoCanHelpMe.Web.Controllers.Shared.Mappers.Contracts
 
     #endregion
 
-    public interface IPageViewModelBuilder
+    public interface IPageViewModelBuilder : IBuilder<PageViewModel>
     {
-        PageViewModel Get();
-
         T UpdateSiteProperties<T>(T pageViewModel) where T : PageViewModel;
     }
 }

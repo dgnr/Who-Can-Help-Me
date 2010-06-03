@@ -14,6 +14,9 @@ namespace WhoCanHelpMe.Infrastructure.Registrars
 
     using Properties;
 
+    using WhoCanHelpMe.Framework.Security;
+    using WhoCanHelpMe.Infrastructure.Security;
+
     #endregion
 
     [Export(typeof(IComponentRegistrar))]
@@ -27,7 +30,7 @@ namespace WhoCanHelpMe.Infrastructure.Registrars
                             .If(f => f.Namespace.Equals("WhoCanHelpMe.Infrastructure.News"))
                             .WithService.FirstNonGenericCoreInterface("WhoCanHelpMe.Domain.Contracts.Services"));
 
-            
+            container.Register(Component.For<IIdentityService>().ImplementedBy<IdentityService>());
         }
     }
 }

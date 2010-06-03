@@ -7,10 +7,11 @@
 
     using global::WhoCanHelpMe.Domain;
     using global::WhoCanHelpMe.Domain.Contracts.Tasks;
+    using global::WhoCanHelpMe.Framework.Mapper;
     using global::WhoCanHelpMe.Framework.Security;
+    using global::WhoCanHelpMe.Web.Controllers;
     using global::WhoCanHelpMe.Web.Controllers.Home;
     using global::WhoCanHelpMe.Web.Controllers.Profile;
-    using global::WhoCanHelpMe.Web.Controllers.Profile.Mappers.Contracts;
     using global::WhoCanHelpMe.Web.Controllers.Profile.ViewModels;
     using global::WhoCanHelpMe.Web.Controllers.Shared.ActionResults;
     using Machine.Specifications;
@@ -29,9 +30,10 @@
         protected static IProfileQueryTasks profile_query_tasks;
         protected static IIdentityService identity_tasks;
         protected static ICategoryTasks category_tasks;
-        protected static IProfilePageViewModelMapper profile_view_model_mapper;
+        protected static IMapper<Profile, ProfilePageViewModel> profile_view_model_mapper;
+        protected static IMapper<Profile, IList<Category>, ProfilePageViewModel> update_profile_view_model_mapper;
         protected static ITagTasks tag_tasks;
-        protected static ICreateProfilePageViewModelBuilder create_profile_page_view_model_builder;
+        protected static IBuilder<CreateProfilePageViewModel> create_profile_page_view_model_builder;
             
         Establish context = () =>
             {
@@ -39,8 +41,9 @@
                 profile_command_tasks = DependencyOf<IProfileCommandTasks>();
                 profile_query_tasks = DependencyOf<IProfileQueryTasks>();
                 category_tasks = DependencyOf<ICategoryTasks>();
-                profile_view_model_mapper = DependencyOf<IProfilePageViewModelMapper>();
-                create_profile_page_view_model_builder = DependencyOf<ICreateProfilePageViewModelBuilder>();
+                profile_view_model_mapper = DependencyOf<IMapper<Profile, ProfilePageViewModel>>();
+                create_profile_page_view_model_builder = DependencyOf<IBuilder<CreateProfilePageViewModel>>();
+                update_profile_view_model_mapper = DependencyOf<IMapper<Profile, IList<Category>, ProfilePageViewModel>>();
             };
     }
 
@@ -224,7 +227,7 @@
 
             identity_tasks.Stub(it => it.GetCurrentIdentity()).Return(the_current_identity);
 
-            profile_view_model_mapper.Stub(pvmm => pvmm.MapFrom(the_retrieved_profile, all_categories)).Return(the_view_model);
+            update_profile_view_model_mapper.Stub(pvmm => pvmm.MapFrom(the_retrieved_profile, all_categories)).Return(the_view_model);
         };
 
         Because of = () => result = subject.Update();
@@ -239,7 +242,7 @@
             () => category_tasks.AssertWasCalled(c => c.GetAll());
 
         It should_ask_the_profile_view_model_mapper_to_map_the_user_and_categories =
-            () => profile_view_model_mapper.AssertWasCalled(m => m.MapFrom(the_retrieved_profile, all_categories));
+            () => update_profile_view_model_mapper.AssertWasCalled(m => m.MapFrom(the_retrieved_profile, all_categories));
 
         It should_return_the_profile_view = () =>
             result.ShouldBeAView().And().ShouldUseDefaultView();

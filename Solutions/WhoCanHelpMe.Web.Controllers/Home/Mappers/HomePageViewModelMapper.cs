@@ -6,8 +6,6 @@
 
     using AutoMapper;
 
-    using Contracts;
-
     using Domain;
 
     using Framework.Mapper;
@@ -18,14 +16,13 @@
 
     #endregion
 
-    public class HomePageViewModelMapper : BasePageViewModelMapper<IList<NewsItem>, HomePageViewModel>,
-                                           IHomePageViewModelMapper
+    public class HomePageViewModelMapper : PageViewModelMapper<IList<NewsItem>, HomePageViewModel>
     {
-        private readonly INewsItemViewModelMapper newsItemViewModelMapper;
+        private readonly IMapper<NewsItem, NewsItemViewModel> newsItemViewModelMapper;
 
         public HomePageViewModelMapper(
             IPageViewModelBuilder pageViewModelBuilder,
-            INewsItemViewModelMapper newsItemViewModelMapper)
+            IMapper<NewsItem, NewsItemViewModel> newsItemViewModelMapper)
             : base(pageViewModelBuilder)
         {
             this.newsItemViewModelMapper = newsItemViewModelMapper;
