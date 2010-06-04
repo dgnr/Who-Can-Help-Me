@@ -2,6 +2,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 {
     #region Using Directives
 
+    using System.Collections.Generic;
     using System.Web.Mvc;
 
     using ActionFilters;
@@ -10,8 +11,6 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
     using Framework.Security;
     using Home;
 
-    using Mappers.Contracts;
-
     using MvcContrib;
     using MvcContrib.Filters;
 
@@ -19,17 +18,22 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
     using ViewModels;
 
+    using WhoCanHelpMe.Domain;
+    using WhoCanHelpMe.Framework.Mapper;
+
     #endregion
 
     public class ProfileController : BaseController
     {
         private readonly ICategoryQueryTasks categoryTasks;
 
-        private readonly ICreateProfilePageViewModelBuilder createProfilePageViewModelMapper;
+        private readonly IBuilder<CreateProfilePageViewModel> createProfilePageViewModelMapper;
 
         private readonly IIdentityService identityTasks;
 
-        private readonly IProfilePageViewModelMapper profilePageViewModelMapper;
+        private readonly IMapper<Profile, IList<Category>, ProfilePageViewModel> updateProfilePageViewModelMapper;
+        
+        private readonly IMapper<Profile, ProfilePageViewModel> viewProfilePageViewModelMapper;
 
         private readonly IProfileQueryTasks profileQueryTasks;
         
@@ -40,14 +44,16 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
             IProfileQueryTasks profileQueryTasks,
             IProfileCommandTasks profileCommandTasks,
             ICategoryQueryTasks categoryTasks,
-            IProfilePageViewModelMapper profilePageViewModelMapper,
-            ICreateProfilePageViewModelBuilder createProfilePageViewModelMapper)
+            IMapper<Profile, IList<Category>, ProfilePageViewModel> updateProfilePageViewModelMapper,
+            IBuilder<CreateProfilePageViewModel> createProfilePageViewModelMapper,
+            IMapper<Profile, ProfilePageViewModel> viewProfilePageViewModelMapper)
         {
             this.identityTasks = identityTasks;
+            this.viewProfilePageViewModelMapper = viewProfilePageViewModelMapper;
             this.profileQueryTasks = profileQueryTasks;
             this.profileCommandTasks = profileCommandTasks;
             this.categoryTasks = categoryTasks;
-            this.profilePageViewModelMapper = profilePageViewModelMapper;
+            this.updateProfilePageViewModelMapper = updateProfilePageViewModelMapper;
             this.createProfilePageViewModelMapper = createProfilePageViewModelMapper;
         }
 
@@ -127,7 +133,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
             var categories = this.categoryTasks.GetAll();
 
-            var viewModel = this.profilePageViewModelMapper.MapFrom(
+            var viewModel = this.updateProfilePageViewModelMapper.MapFrom(
                 user,
                 categories);
 
@@ -158,7 +164,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
             if (user != null)
             {
-                var profileViewModel = this.profilePageViewModelMapper.MapFrom(user);
+                var profileViewModel = this.viewProfilePageViewModelMapper.MapFrom(user);
 
                 return this.View(profileViewModel);
             }

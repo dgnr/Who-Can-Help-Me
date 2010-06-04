@@ -8,9 +8,8 @@
     using MvcContrib;
     using MvcContrib.Filters;
 
-    using WhoCanHelpMe.Domain.Contracts.Tasks;
+    using WhoCanHelpMe.Framework.Mapper;
     using WhoCanHelpMe.Web.Controllers.Home;
-    using WhoCanHelpMe.Web.Controllers.User.Mappers.Contracts;
     using WhoCanHelpMe.Web.Controllers.User.ViewModels;
 
     #endregion
@@ -21,18 +20,18 @@
 
         private readonly IIdentityService identityTasks;
 
-        private readonly ILoginPageViewModelMapper loginPageViewModelMapper;
+        private readonly IMapper<string, string, LoginPageViewModel> loginPageViewModelMapper;
 
-        private readonly IRegisterPageViewModelMapper registerPageViewModelMapper;
+        private readonly IMapper<string, string, RegisterPageViewModel> registerPageViewModelMapper;
 
         #endregion
 
         #region Constructors and Destructors
 
         public UserController(
-            IIdentityService identityTasks, 
-            ILoginPageViewModelMapper loginPageViewModelMapper, 
-            IRegisterPageViewModelMapper registerPageViewModelMapper)
+            IIdentityService identityTasks,
+            IMapper<string, string, LoginPageViewModel> loginPageViewModelMapper,
+            IMapper<string, string, RegisterPageViewModel> registerPageViewModelMapper)
         {
             this.identityTasks = identityTasks;
             this.loginPageViewModelMapper = loginPageViewModelMapper;

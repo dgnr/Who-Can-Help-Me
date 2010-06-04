@@ -2,15 +2,15 @@ namespace WhoCanHelpMe.Web.Controllers.User.Mappers
 {
     #region Using Directives
 
-    using Contracts;
-
     using Shared.Mappers.Contracts;
 
     using ViewModels;
 
+    using WhoCanHelpMe.Framework.Mapper;
+
     #endregion
 
-    public class RegisterPageViewModelMapper : IRegisterPageViewModelMapper
+    public class RegisterPageViewModelMapper : IMapper<string, string, RegisterPageViewModel>
     {
         private readonly IPageViewModelBuilder pageViewModelBuilder;
 

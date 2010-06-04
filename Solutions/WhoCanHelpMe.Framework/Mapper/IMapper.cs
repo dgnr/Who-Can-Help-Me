@@ -2,7 +2,7 @@ namespace WhoCanHelpMe.Framework.Mapper
 {
     public interface IMapper<TInput, TOutput>
     {
-        TOutput MapFrom(TInput input);
+        TOutput MapFrom(TInput input1);
     }
 
     public interface IMapper<TInput1, TInput2, TOutput>

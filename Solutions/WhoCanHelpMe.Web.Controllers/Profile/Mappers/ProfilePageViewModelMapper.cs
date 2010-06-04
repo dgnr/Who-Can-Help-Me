@@ -7,8 +7,6 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.Mappers
 
     using AutoMapper;
 
-    using Contracts;
-
     using Domain;
 
     using Framework.Mapper;
@@ -21,18 +19,18 @@ namespace WhoCanHelpMe.Web.Controllers.Profile.Mappers
 
     #endregion
 
-    public class ProfilePageViewModelMapper : IProfilePageViewModelMapper
+    public class ProfilePageViewModelMapper : IMapper<Profile, ProfilePageViewModel>
     {
-        private readonly ICategoryViewModelMapper categoryViewModelMapper;
+        private readonly IMapper<Category, CategoryViewModel> categoryViewModelMapper;
 
         private readonly IPageViewModelBuilder pageViewModelBuilder;
 
-        private readonly IProfileAssertionViewModelMapper profileAssertionViewModelMapper;
+        private readonly IMapper<Assertion, ProfileAssertionViewModel> profileAssertionViewModelMapper;
 
         public ProfilePageViewModelMapper(
             IPageViewModelBuilder pageViewModelBuilder,
-            IProfileAssertionViewModelMapper profileAssertionViewModelMapper,
-            ICategoryViewModelMapper categoryViewModelMapper)
+            IMapper<Assertion, ProfileAssertionViewModel> profileAssertionViewModelMapper,
+            IMapper<Category, CategoryViewModel> categoryViewModelMapper)
         {
             this.pageViewModelBuilder = pageViewModelBuilder;
             this.profileAssertionViewModelMapper = profileAssertionViewModelMapper;
