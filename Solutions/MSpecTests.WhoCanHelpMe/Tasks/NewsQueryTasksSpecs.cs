@@ -13,15 +13,15 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
 
     #endregion
 
-    public abstract class specification_for_news_tasks : Specification<INewsTasks, NewsTasks>
+    public abstract class specification_for_news_query_tasks : Specification<INewsQueryTasks, NewsQueryTasks>
     {
         protected static INewsService the_news_service;
 
         Establish context = () => the_news_service = DependencyOf<INewsService>();
     }
 
-    [Subject(typeof(NewsTasks))]
-    public class when_the_news_tasks_are_asked_to_get_headlines : specification_for_news_tasks
+    [Subject(typeof(NewsQueryTasks))]
+    public class when_the_news_query_tasks_are_asked_to_get_headlines : specification_for_news_query_tasks
     {
         protected static IList<NewsItem> result;
         static IList<NewsItem> the_stories;

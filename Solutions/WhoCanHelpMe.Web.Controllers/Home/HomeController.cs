@@ -20,10 +20,10 @@
     {
         private readonly IHomePageViewModelMapper homePageViewModelMapper;
 
-        private readonly INewsTasks newsTasks;
+        private readonly INewsQueryTasks newsTasks;
 
         public HomeController(
-            INewsTasks newsTasks,
+            INewsQueryTasks newsTasks,
             IHomePageViewModelMapper homePageViewModelMapper)
         {
             this.newsTasks = newsTasks;

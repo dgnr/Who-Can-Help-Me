@@ -101,14 +101,13 @@
     <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CategoryTasks.cs" />
+    <Compile Include="CategoryQueryTasks.cs" />
     <Compile Include="ProfileWriteTasks.cs" />
-    <Compile Include="NewsTasks.cs" />
+    <Compile Include="NewsQueryTasks.cs" />
     <Compile Include="Properties\TasksRegistrarMarker.cs" />
     <Compile Include="Registrars\TaskRegistrar.cs" />
-    <Compile Include="SearchTasks.cs" />
-    <Compile Include="SiteMetaDataTasks.cs" />
-    <Compile Include="TagTasks.cs" />
+    <Compile Include="SearchQueryTasks.cs" />
+    <Compile Include="TagQueryTasks.cs" />
     <Compile Include="ProfileReadTasks.cs" />
   </ItemGroup>
   <ItemGroup>

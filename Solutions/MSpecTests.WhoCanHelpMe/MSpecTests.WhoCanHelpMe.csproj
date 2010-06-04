@@ -115,13 +115,12 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ServiceLocatorHelper.cs" />
-    <Compile Include="Tasks\CategoryTasksSpecs.cs" />
+    <Compile Include="Tasks\CategoryQueryTasksSpecs.cs" />
     <Compile Include="Tasks\ProfileQueryTasksSpecs.cs" />
-    <Compile Include="Tasks\NewsTasksSpecs.cs" />
+    <Compile Include="Tasks\NewsQueryTasksSpecs.cs" />
     <Compile Include="Tasks\ProfileCommandTasksSpecs.cs" />
-    <Compile Include="Tasks\SearchTasksSpecs.cs" />
-    <Compile Include="Tasks\SiteMetaDataTasks.cs" />
-    <Compile Include="Tasks\TagTasksSpecs.cs" />
+    <Compile Include="Tasks\SearchQueryTasksSpecs.cs" />
+    <Compile Include="Tasks\TagQueryTasksSpecs.cs" />
     <Compile Include="TestHelperExtensions.cs" />
     <Compile Include="Web.Controllers\RequireNoExistingProfileAttributeSpecs.cs" />
     <Compile Include="Web.Controllers\HomeControllerSpecs.cs" />

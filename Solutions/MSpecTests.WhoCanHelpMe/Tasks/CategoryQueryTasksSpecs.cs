@@ -17,15 +17,15 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
 
     #endregion
 
-    public abstract class specification_for_category_tasks : Specification<ICategoryTasks, CategoryTasks>
+    public abstract class specification_for_category_query_tasks : Specification<ICategoryQueryTasks, CategoryQueryTasks>
     {
         protected static ICategoryRepository the_category_repository;
 
         Establish context = () => the_category_repository = DependencyOf<ICategoryRepository>();
     }
 
-    [Subject(typeof(CategoryTasks))]
-    public class when_the_category_tasks_are_asked_to_get_all : specification_for_category_tasks
+    [Subject(typeof(CategoryQueryTasks))]
+    public class when_the_category_query_tasks_are_asked_to_get_all : specification_for_category_query_tasks
     {
         protected static IList<Category> result;
         static IQueryable<Category> the_categories;
@@ -44,8 +44,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         It should_return_the_list_of_categories = () => result.ShouldContainOnly(the_categories);
     }
 
-    [Subject(typeof(CategoryTasks))]
-    public class when_the_category_tasks_are_asked_to_get_all_but_there_are_no_categories_in_the_repository : specification_for_category_tasks
+    [Subject(typeof(CategoryQueryTasks))]
+    public class when_the_category_query_tasks_are_asked_to_get_all_but_there_are_no_categories_in_the_repository : specification_for_category_query_tasks
     {
         protected static IList<Category> result;
         static IQueryable<Category> the_categories;
@@ -68,8 +68,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
             };
     }
 
-    [Subject(typeof(CategoryTasks))]
-    public class when_the_category_tasks_are_asked_for_a_category_by_id : specification_for_category_tasks
+    [Subject(typeof(CategoryQueryTasks))]
+    public class when_the_category_query_tasks_are_asked_for_a_category_by_id : specification_for_category_query_tasks
     {
         static int category_id;
         static Category result;
@@ -91,8 +91,8 @@ namespace MSpecTests.WhoCanHelpMe.Tasks
         It should_return_the_matching_category = () => result.ShouldEqual(the_category);
     }
 
-    [Subject(typeof(CategoryTasks))]
-    public class when_the_category_tasks_are_asked_for_a_category_by_id_and_there_is_no_matching_category : specification_for_category_tasks
+    [Subject(typeof(CategoryQueryTasks))]
+    public class when_the_category_query_tasks_are_asked_for_a_category_by_id_and_there_is_no_matching_category : specification_for_category_query_tasks
     {
         static int category_id;
         static Category result;

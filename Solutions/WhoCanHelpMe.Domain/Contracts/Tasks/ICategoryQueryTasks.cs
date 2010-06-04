@@ -6,7 +6,7 @@
 
     #endregion
 
-    public interface ICategoryTasks
+    public interface ICategoryQueryTasks
     {
         IList<Category> GetAll();
 

@@ -17,11 +17,11 @@ namespace MSpecTests.WhoCanHelpMe.Web.Controllers
 
     public abstract class specification_for_tag_controller : Specification<TagController>
     {
-        protected static ITagTasks tag_tasks;
+        protected static ITagQueryTasks tag_tasks;
 
         Establish context = () =>
             {
-                tag_tasks = DependencyOf<ITagTasks>();
+                tag_tasks = DependencyOf<ITagQueryTasks>();
 
                 ServiceLocatorHelper.AddCachingService();
             };

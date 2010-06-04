@@ -12,13 +12,13 @@
 
     #endregion
 
-    public class SearchTasks : ISearchTasks
+    public class SearchQueryTasks : ISearchQueryTasks
     {
         private readonly IAssertionRepository assertionRepository;
 
         private readonly ITagRepository tagRepository;
 
-        public SearchTasks(
+        public SearchQueryTasks(
             IAssertionRepository assertionRepository,
             ITagRepository tagRepository)
         {

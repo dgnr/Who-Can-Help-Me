@@ -21,12 +21,12 @@
     public abstract class specification_for_home_controller : Specification<HomeController>
     {
         protected static IHomePageViewModelMapper home_view_model_mapper;
-        protected static INewsTasks news_tasks;
+        protected static INewsQueryTasks news_tasks;
 
         Establish context = () =>
         {
             home_view_model_mapper = DependencyOf<IHomePageViewModelMapper>();
-            news_tasks = DependencyOf<INewsTasks>();
+            news_tasks = DependencyOf<INewsQueryTasks>();
 
             ServiceLocatorHelper.AddCachingService();
         };

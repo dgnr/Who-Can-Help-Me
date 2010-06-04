@@ -20,16 +20,16 @@ namespace MSpecTests.WhoCanHelpMe.Web.Controllers
 
     public  class specification_for_search_controller : Specification<SearchController>
     {
-        protected static ITagTasks tag_tasks;
+        protected static ITagQueryTasks tag_tasks;
         protected static List<Tag> the_popular_tags;
-        public static ISearchTasks search_tasks;
+        public static ISearchQueryTasks search_tasks;
         protected static ISearchPageViewModelMapper search_view_model_mapper;
         protected static ISearchResultsPageViewModelMapper search_results_view_model_mapper;
 
         Establish context= () =>
         {
-            search_tasks = DependencyOf<ISearchTasks>();
-            tag_tasks = DependencyOf<ITagTasks>();
+            search_tasks = DependencyOf<ISearchQueryTasks>();
+            tag_tasks = DependencyOf<ITagQueryTasks>();
             search_view_model_mapper = DependencyOf<ISearchPageViewModelMapper>();
             search_results_view_model_mapper = DependencyOf<ISearchResultsPageViewModelMapper>();
 

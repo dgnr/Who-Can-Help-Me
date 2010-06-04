@@ -19,8 +19,8 @@
 
     #endregion
 
-    [Subject(typeof(TagTasks))]
-    public abstract class specification_for_tag_tasks : Specification<ITagTasks, TagTasks>
+    [Subject(typeof(TagQueryTasks))]
+    public abstract class specification_for_tag_query_tasks : Specification<ITagQueryTasks, TagQueryTasks>
     {
         protected static ITagRepository the_tag_repository;
 
@@ -30,8 +30,8 @@
         };
     }
 
-    [Subject(typeof(TagTasks))]
-    public class when_the_tag_tasks_are_asked_to_get_tags_matching_starting_characters_but_no_characters_are_supplied : specification_for_tag_tasks
+    [Subject(typeof(TagQueryTasks))]
+    public class when_the_tag_query_tasks_are_asked_to_get_tags_matching_starting_characters_but_no_characters_are_supplied : specification_for_tag_query_tasks
     {
         static string the_starting_characters;
         static IList<Tag> result;
@@ -45,8 +45,8 @@
         It should_return_an_empty_list = () => result.ShouldBeEmpty();
     }
 
-    [Subject(typeof(TagTasks))]
-    public class when_the_tag_tasks_are_asked_to_get_tags_matching_starting_characters_and_there_are_matching_tags : specification_for_tag_tasks
+    [Subject(typeof(TagQueryTasks))]
+    public class when_the_tag_query_tasks_are_asked_to_get_tags_matching_starting_characters_and_there_are_matching_tags : specification_for_tag_query_tasks
     {
         static string the_starting_characters;
         static IQueryable<Tag> the_matching_tags;
@@ -80,8 +80,8 @@
         };
     }
 
-    [Subject(typeof(TagTasks))]
-    public class when_the_tag_tasks_are_asked_to_get_tags_matching_starting_characters_and_there_are_no_matching_tags : specification_for_tag_tasks
+    [Subject(typeof(TagQueryTasks))]
+    public class when_the_tag_query_tasks_are_asked_to_get_tags_matching_starting_characters_and_there_are_no_matching_tags : specification_for_tag_query_tasks
     {
         static string the_starting_characters;
         static IQueryable<Tag> the_matching_tags;
@@ -103,8 +103,8 @@
         It should_return_an_empty_list = () => result.ShouldBeEmpty();
     }
 
-    [Subject(typeof(TagTasks))]
-    public class when_the_tag_tasks_are_asked_for_the_most_popular_tags : specification_for_tag_tasks
+    [Subject(typeof(TagQueryTasks))]
+    public class when_the_tag_query_tasks_are_asked_for_the_most_popular_tags : specification_for_tag_query_tasks
     {
         static int the_tag_count;
         static IQueryable<Tag> the_matching_tags;
@@ -130,8 +130,8 @@
         It should_return_the_list_of_tags = () => result.ShouldContainOnly(the_matching_tags);
     }
 
-    [Subject(typeof(TagTasks))]
-    public class when_the_tag_tasks_are_asked_to_get_a_tag_by_name : specification_for_tag_tasks
+    [Subject(typeof(TagQueryTasks))]
+    public class when_the_tag_query_tasks_are_asked_to_get_a_tag_by_name : specification_for_tag_query_tasks
     {
         static Tag result;
         static Tag the_tag;
@@ -154,8 +154,8 @@
 
     }
 
-    [Subject(typeof(TagTasks))]
-    public class when_the_tag_tasks_are_asked_to_get_a_tag_by_name_and_there_is_no_matching_tag : specification_for_tag_tasks
+    [Subject(typeof(TagQueryTasks))]
+    public class when_the_tag_query_tasks_are_asked_to_get_a_tag_by_name_and_there_is_no_matching_tag : specification_for_tag_query_tasks
     {
         static Tag result;
         static string the_tag_name;

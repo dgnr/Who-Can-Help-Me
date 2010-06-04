@@ -6,7 +6,7 @@
 
     #endregion
 
-    public interface ITagTasks
+    public interface ITagQueryTasks
     {
         IList<Tag> GetWhereNameStartsWith(string characters);
 

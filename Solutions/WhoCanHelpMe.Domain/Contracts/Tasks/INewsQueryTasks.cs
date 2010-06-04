@@ -6,7 +6,7 @@ namespace WhoCanHelpMe.Domain.Contracts.Tasks
 
     #endregion
 
-    public interface INewsTasks
+    public interface INewsQueryTasks
     {
         IList<NewsItem> GetProjectBuzz();
         IList<NewsItem> GetDevelopmentTeamBuzz();

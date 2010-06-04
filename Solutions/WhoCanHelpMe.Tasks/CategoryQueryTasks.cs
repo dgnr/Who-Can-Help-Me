@@ -12,11 +12,11 @@
 
     #endregion
 
-    public class CategoryTasks : ICategoryTasks
+    public class CategoryQueryTasks : ICategoryQueryTasks
     {
         private readonly ICategoryRepository categoryRepository;
 
-        public CategoryTasks(ICategoryRepository categoryRepository)
+        public CategoryQueryTasks(ICategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
         }

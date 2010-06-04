@@ -23,7 +23,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
     public class ProfileController : BaseController
     {
-        private readonly ICategoryTasks categoryTasks;
+        private readonly ICategoryQueryTasks categoryTasks;
 
         private readonly ICreateProfilePageViewModelBuilder createProfilePageViewModelMapper;
 
@@ -39,7 +39,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
             IIdentityService identityTasks,
             IProfileQueryTasks profileQueryTasks,
             IProfileCommandTasks profileCommandTasks,
-            ICategoryTasks categoryTasks,
+            ICategoryQueryTasks categoryTasks,
             IProfilePageViewModelMapper profilePageViewModelMapper,
             ICreateProfilePageViewModelBuilder createProfilePageViewModelMapper)
         {

@@ -6,7 +6,7 @@
 
     #endregion
 
-    public interface ISearchTasks
+    public interface ISearchQueryTasks
     {
         IList<Assertion> ByTag(string tagName);
     }

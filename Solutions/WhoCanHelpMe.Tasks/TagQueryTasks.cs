@@ -12,11 +12,11 @@
 
     #endregion
 
-    public class TagTasks : ITagTasks
+    public class TagQueryTasks : ITagQueryTasks
     {
         private readonly ITagRepository tagRepository;
 
-        public TagTasks(ITagRepository tagRepository)
+        public TagQueryTasks(ITagRepository tagRepository)
         {
             this.tagRepository = tagRepository;
         }

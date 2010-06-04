@@ -194,7 +194,6 @@
     <Compile Include="Initialisers\RouteInitialiser.cs" />
     <Compile Include="Search\SearchController.cs" />
     <Compile Include="Tag\TagController.cs" />
-    <Compile Include="Shared\ViewModels\MetaDataViewModel.cs" />
     <Compile Include="Navigation\ViewModels\MenuViewModel.cs" />
     <Compile Include="Shared\ViewModels\PageViewModel.cs" />
     <Compile Include="Profile\ViewModels\ProfileAssertionViewModel.cs" />

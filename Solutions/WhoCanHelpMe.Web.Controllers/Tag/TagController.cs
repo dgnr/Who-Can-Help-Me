@@ -11,9 +11,9 @@
 
     public class TagController : BaseController
     {
-        private readonly ITagTasks tagTasks;
+        private readonly ITagQueryTasks tagTasks;
 
-        public TagController(ITagTasks tagTasks)
+        public TagController(ITagQueryTasks tagTasks)
         {
             this.tagTasks = tagTasks;
         }

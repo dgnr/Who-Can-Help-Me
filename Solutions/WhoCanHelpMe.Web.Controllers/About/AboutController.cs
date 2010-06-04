@@ -21,10 +21,10 @@ namespace WhoCanHelpMe.Web.Controllers.About
     {
         private readonly IAboutPageViewModelMapper aboutPageViewModelMapper;
 
-        private readonly INewsTasks newsTasks;
+        private readonly INewsQueryTasks newsTasks;
 
         public AboutController(
-            INewsTasks newsTasks,
+            INewsQueryTasks newsTasks,
             IAboutPageViewModelMapper aboutPageViewModelMapper)
         {
             this.newsTasks = newsTasks;

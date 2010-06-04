@@ -28,9 +28,9 @@
         protected static IProfileCommandTasks profile_command_tasks;
         protected static IProfileQueryTasks profile_query_tasks;
         protected static IIdentityService identity_tasks;
-        protected static ICategoryTasks category_tasks;
+        protected static ICategoryQueryTasks category_tasks;
         protected static IProfilePageViewModelMapper profile_view_model_mapper;
-        protected static ITagTasks tag_tasks;
+        protected static ITagQueryTasks tag_tasks;
         protected static ICreateProfilePageViewModelBuilder create_profile_page_view_model_builder;
             
         Establish context = () =>
@@ -38,7 +38,7 @@
                 identity_tasks = DependencyOf<IIdentityService>();
                 profile_command_tasks = DependencyOf<IProfileCommandTasks>();
                 profile_query_tasks = DependencyOf<IProfileQueryTasks>();
-                category_tasks = DependencyOf<ICategoryTasks>();
+                category_tasks = DependencyOf<ICategoryQueryTasks>();
                 profile_view_model_mapper = DependencyOf<IProfilePageViewModelMapper>();
                 create_profile_page_view_model_builder = DependencyOf<ICreateProfilePageViewModelBuilder>();
             };

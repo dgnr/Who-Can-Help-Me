@@ -13,14 +13,11 @@ namespace WhoCanHelpMe.Web.Controllers.Shared.ViewModels
     {
         public PageViewModel()
         {
-            this.MetaData = new MetaDataViewModel();
             this.Scripts = new List<string>();
             this.Styles = new List<string>();
         }
 
         public string AnalyticsIdentifier { get; set; }
-
-        public MetaDataViewModel MetaData { get; set; }
 
         public IList<string> Scripts { get; set; }
 

@@ -1,21 +1,35 @@
 ﻿namespace WhoCanHelpMe.Web.Controllers.Shared.Mappers
 {
-    #region Using Directives
+    #region Using directives
 
-    using Domain.Contracts.Tasks;
-    using Contracts;
-    using ViewModels;
+    using System.Collections.Generic;
+
+    using WhoCanHelpMe.Domain.Contracts.Configuration;
+    using WhoCanHelpMe.Web.Controllers.Shared.Mappers.Contracts;
+    using WhoCanHelpMe.Web.Controllers.Shared.ViewModels;
 
     #endregion
 
     public class PageViewModelBuilder : IPageViewModelBuilder
     {
-        private readonly ISiteMetaDataTasks siteMetaDataTasks;
+        #region Constants and Fields
 
-        public PageViewModelBuilder(ISiteMetaDataTasks siteMetaDataTasks)
+        private readonly IConfigurationService configurationService;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public PageViewModelBuilder(IConfigurationService configurationService)
         {
-            this.siteMetaDataTasks = siteMetaDataTasks;
+            this.configurationService = configurationService;
         }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IPageViewModelBuilder
 
         public PageViewModel Get()
         {
@@ -26,15 +40,42 @@
 
         public T UpdateSiteProperties<T>(T pageViewModel) where T : PageViewModel
         {
-            var siteMetaData = this.siteMetaDataTasks.GetSiteMetaData();
-
-            pageViewModel.AnalyticsIdentifier = siteMetaData.AnalyticsIdentifier;
-            pageViewModel.Scripts = siteMetaData.Scripts;
-            pageViewModel.SiteVerification = siteMetaData.SiteVerification;
-            pageViewModel.Styles = siteMetaData.Styles;
-            pageViewModel.WebTitle = siteMetaData.Title;
+            pageViewModel.AnalyticsIdentifier = this.configurationService.Analytics.Idenfitier;
+            pageViewModel.Scripts = GetScripts();
+            pageViewModel.SiteVerification = this.configurationService.Analytics.Verification;
+            pageViewModel.Styles = GetStyles();
+            pageViewModel.WebTitle = "Who Can Help Me?";
 
             return pageViewModel;
         }
+
+        #endregion
+
+        #endregion
+
+        #region Methods
+
+        private static IList<string> GetScripts()
+        {
+            var scripts = new List<string>
+                {
+                    "jquery-1.4.1.min.js", 
+                    "jquery.autocomplete.custom.js", 
+                    "bespoke.js", 
+                    "MicrosoftAjax.js", 
+                    "MicrosoftMvcValidation.js"
+                };
+
+            return scripts;
+        }
+
+        private static IList<string> GetStyles()
+        {
+            var styles = new List<string> { "reset.css", "jquery.autocomplete.css", "openid.css", "site.less" };
+
+            return styles;
+        }
+
+        #endregion
     }
 }

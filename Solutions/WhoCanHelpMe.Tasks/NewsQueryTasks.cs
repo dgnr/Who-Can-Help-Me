@@ -10,11 +10,11 @@
 
     #endregion
 
-    public class NewsTasks : INewsTasks
+    public class NewsQueryTasks : INewsQueryTasks
     {
         private readonly INewsService newsService;
 
-        public NewsTasks(INewsService newsService)
+        public NewsQueryTasks(INewsService newsService)
         {
             this.newsService = newsService;
         }

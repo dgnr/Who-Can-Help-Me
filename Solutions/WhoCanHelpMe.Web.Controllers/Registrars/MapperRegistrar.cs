@@ -6,6 +6,8 @@ namespace WhoCanHelpMe.Web.Controllers.Registrars
     using System.Reflection;
     using System.Web.Mvc;
 
+    using AutoMapper;
+
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
 
@@ -16,6 +18,8 @@ namespace WhoCanHelpMe.Web.Controllers.Registrars
     using MvcContrib.Castle;
 
     using Properties;
+
+    using WhoCanHelpMe.Framework.Mapper;
 
     #endregion
 

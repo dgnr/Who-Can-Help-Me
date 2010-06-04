@@ -20,15 +20,15 @@
     {
         private readonly ISearchResultsPageViewModelMapper searchResultsPageViewModelMapper;
 
-        private readonly ISearchTasks searchTasks;
+        private readonly ISearchQueryTasks searchTasks;
 
         private readonly ISearchPageViewModelMapper searchPageViewModelMapper;
 
-        private readonly ITagTasks tagTasks;
+        private readonly ITagQueryTasks tagTasks;
 
         public SearchController(
-            ISearchTasks searchTasks,
-            ITagTasks tagTasks,
+            ISearchQueryTasks searchTasks,
+            ITagQueryTasks tagTasks,
             ISearchPageViewModelMapper searchPageViewModelMapper,
             ISearchResultsPageViewModelMapper searchResultsPageViewModelMapper)
         {
