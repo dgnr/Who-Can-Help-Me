@@ -31,7 +31,7 @@
         protected static IIdentityService identity_tasks;
         protected static ICategoryQueryTasks category_tasks;
         protected static IMapper<Profile, ProfilePageViewModel> profile_view_model_mapper;
-        protected static IMapper<Profile, IList<Category>, ProfilePageViewModel> update_profile_view_model_mapper;
+        protected static IMapper<Profile, IList<Category>, UpdateProfilePageViewModel> update_profile_view_model_mapper;
         protected static ITagQueryTasks tag_tasks;
         protected static IBuilder<CreateProfilePageViewModel> create_profile_page_view_model_builder;
             
@@ -43,7 +43,7 @@
                 category_tasks = DependencyOf<ICategoryQueryTasks>();
                 profile_view_model_mapper = DependencyOf<IMapper<Profile, ProfilePageViewModel>>();
                 create_profile_page_view_model_builder = DependencyOf<IBuilder<CreateProfilePageViewModel>>();
-                update_profile_view_model_mapper = DependencyOf<IMapper<Profile, IList<Category>, ProfilePageViewModel>>();
+                update_profile_view_model_mapper = DependencyOf<IMapper<Profile, IList<Category>, UpdateProfilePageViewModel>>();
             };
     }
 
@@ -204,7 +204,7 @@
         static Profile the_retrieved_profile;
         static List<Category> all_categories;
         static ActionResult result;
-        static ProfilePageViewModel the_view_model;
+        static UpdateProfilePageViewModel the_view_model;
 
         Establish context = () =>
         {
@@ -217,7 +217,7 @@
 
             the_retrieved_profile = new Profile();
 
-            the_view_model = new ProfilePageViewModel();
+            the_view_model = new UpdateProfilePageViewModel();
 
             profile_query_tasks.Stub(ut => ut.GetProfileByUserName(the_user_name)).Return(the_retrieved_profile);
 
@@ -248,7 +248,7 @@
             result.ShouldBeAView().And().ShouldUseDefaultView();
 
         It should_pass_the_view_model_to_the_profile_view =
-            () => result.Model<ProfilePageViewModel>().ShouldBeTheSameAs(the_view_model);
+            () => result.Model<UpdateProfilePageViewModel>().ShouldBeTheSameAs(the_view_model);
     }
 
     [Subject(typeof(ProfileController))]

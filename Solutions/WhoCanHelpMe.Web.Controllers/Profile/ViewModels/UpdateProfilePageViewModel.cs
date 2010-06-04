@@ -10,17 +10,22 @@
     #endregion
 
     [DebuggerDisplay("{FirstName} {LastName}")]
-    public class ProfilePageViewModel : PageViewModel
+    public class UpdateProfilePageViewModel : PageViewModel
     {
-        public ProfilePageViewModel()
+        public UpdateProfilePageViewModel()
         {
             this.Assertions = new List<ProfileAssertionViewModel>();
+            this.FormModel = new AddAssertionFormModel();
         }
 
         public IList<ProfileAssertionViewModel> Assertions { get; set; }
 
+        public IList<CategoryViewModel> Categories { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public AddAssertionFormModel FormModel { get; set; }
     }
 }

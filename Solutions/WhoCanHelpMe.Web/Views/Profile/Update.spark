@@ -1,4 +1,4 @@
-﻿<viewdata model="WhoCanHelpMe.Web.Controllers.Profile.ViewModels.ProfilePageViewModel"/>
+﻿<viewdata model="WhoCanHelpMe.Web.Controllers.Profile.ViewModels.UpdateProfilePageViewModel"/>
 
 <content name="title">
 Show off your 'Guns'

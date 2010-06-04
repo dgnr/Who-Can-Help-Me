@@ -31,9 +31,9 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
         private readonly IIdentityService identityTasks;
 
-        private readonly IMapper<Profile, IList<Category>, ProfilePageViewModel> updateProfilePageViewModelMapper;
+        private readonly IMapper<Profile, IList<Category>, UpdateProfilePageViewModel> updateProfilePageViewModelMapper;
         
-        private readonly IMapper<Profile, ProfilePageViewModel> viewProfilePageViewModelMapper;
+        private readonly IMapper<Profile, ProfilePageViewModel> profilePageViewModelMapper;
 
         private readonly IProfileQueryTasks profileQueryTasks;
         
@@ -44,12 +44,12 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
             IProfileQueryTasks profileQueryTasks,
             IProfileCommandTasks profileCommandTasks,
             ICategoryQueryTasks categoryTasks,
-            IMapper<Profile, IList<Category>, ProfilePageViewModel> updateProfilePageViewModelMapper,
+            IMapper<Profile, IList<Category>, UpdateProfilePageViewModel> updateProfilePageViewModelMapper,
             IBuilder<CreateProfilePageViewModel> createProfilePageViewModelMapper,
-            IMapper<Profile, ProfilePageViewModel> viewProfilePageViewModelMapper)
+            IMapper<Profile, ProfilePageViewModel> profilePageViewModelMapper)
         {
             this.identityTasks = identityTasks;
-            this.viewProfilePageViewModelMapper = viewProfilePageViewModelMapper;
+            this.profilePageViewModelMapper = profilePageViewModelMapper;
             this.profileQueryTasks = profileQueryTasks;
             this.profileCommandTasks = profileCommandTasks;
             this.categoryTasks = categoryTasks;
@@ -164,7 +164,7 @@ namespace WhoCanHelpMe.Web.Controllers.Profile
 
             if (user != null)
             {
-                var profileViewModel = this.viewProfilePageViewModelMapper.MapFrom(user);
+                var profileViewModel = this.profilePageViewModelMapper.MapFrom(user);
 
                 return this.View(profileViewModel);
             }
