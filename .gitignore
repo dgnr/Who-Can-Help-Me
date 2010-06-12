@@ -1,6 +1,7 @@
 AssemblyVersion.cs
 obj
 bin
+debug
 _Resharper.*
 _ReSharper.*
 *.csproj.user
